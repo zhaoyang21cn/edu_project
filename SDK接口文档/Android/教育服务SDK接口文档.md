@@ -33,6 +33,8 @@
 **关系类图如下：**
 
 ![](./互动教育SDK接口UML类图.png)
+
+
 ### EduSDKConfig
 SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参数，需要由业务传入。主要如下：
 
@@ -40,15 +42,15 @@ SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参�
 | ------------------	| -------------	| ---------------    |
 | identifier     		|	String 		|  IM用户id      |
 | userSig     			| 	String			|  IM用户鉴权票据      |
-| userToken     			| 	String			|  用户token      |
-| iLiveSDKAppId     	|	int	 			|  iLiveSDK的appId      |
-| iLiveAccountType     	|	int	 			|  iLiveSDK的账号类型      |
-| cosAppId     			| 	int				|  COS服务的appId      |
-| bucket    			 	|	String			|  COS中用于存储数据的容器      |
-| sign    			 	|	String			|  COS 签名信息，用于上传文件至COS服务器      |
+| appId     				|	int	 			|  iLiveSDK的appId      |
+| accountType     		|	int	 			|  iLiveSDK的账号类型      |
+| cosAppId     			| 	String			|  COS服务的appId      |
+| cosBucket    			|	String			|  COS中用于存储数据的容器      |
+| cosSign    			 	|	String			|  COS 签名信息，用于上传文件至COS服务器      |
+| cosRegion    			|	String			|  COS 域名中的地域信息      |
 
 ```java
-/**
+	/**
      * IM用户id
      */
     private String identifier = null;
@@ -56,35 +58,30 @@ SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参�
      * IM用户鉴权票据
      */
     private String userSig = null;
-
     /**
-     * IM用户token
+     * iLiveSDK的appId，详见https://cloud.tencent.com/document/product/269/1508
      */
-    private String userToken;
-
-    /**
-     * https://cloud.tencent.com/document/product/269/1508
-     * iLiveSDK的appId
-     */
-    private int ilivesdkAppid;
+    private int appid;
     /**
      * iLiveSDK的账号类型
      */
-    private int iliveAccountType;
+    private int accountType;
     /**
-     * COS服务的appId（见https://cloud.tencent.com/document/product/436/7751）
+     * COS服务的appId，详见https://cloud.tencent.com/document/product/436/7751
      */
     private int cosAppId;
-
     /**
      * COS中用于存储数据的容器
      */
-    private String bucket = null;
-
+    private String cosBucket = null;
     /**
-     * COS 签名信息，用于上传文件至COS服务器
+     * COS签名信息，用于上传文件至COS服务器
      */
-    private String sign = null;
+    private String cosSign = null;
+     /**
+     * COS域名中的地域信息
+     */
+    private String cosSign = null;
 
 ```
 
@@ -98,7 +95,7 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 | getVersion    			|  获取版本信息     |
 
 ```java
-/**
+	/**
      * 教育SDK初始化
      * @param config 初始化配置参数
      * @return
@@ -149,7 +146,8 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 | enableCamera    			|  打开/关闭摄像头    |
 | switchCamera    			|  前后摄像头切换    |
 | enableMic    			|  打开/关闭麦克风    |
-| switchMic    			|  切换麦克风    |
+| enableSpeaker				| 打开/关闭扬声器  |
+| switchMic    			|  切换麦克风(Web)    |
 | enableScreenShare    			|  开启/关闭屏幕分享（PC && Web）    |
 | enablePlayVideo    			|  开启/关闭播片功能（PC）    |
 | setAvRootView    			|  设置渲染控件(Android)    |
@@ -158,7 +156,7 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 | sendGroupTextMessage    			|  发送群文本消息    |
 | sendGroupCustomMessage    			|  发送群组自定义消息    |
 
-详细说明如下（@NonNull标识该参数不可为空；@Nullable标识该参数可以为空）：
+详细说明如下（**@NonNull**标识该参数**不可为空**；**@Nullable**标识该参数**可以为空**）：
 
 ```java
 
@@ -171,7 +169,7 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
      * 根据参数创建课堂
      *
      * @param classroomOpion 创建课堂的配置参数，详见@EduClassroomOpion
-     * @param callback       回调，见@IEduCallback， onSuccess，携带课堂id标识，该标识很重要，唯一标识课堂资源，业务方需要结合自己的业务维护该资源。若出错，则通过onError返回。
+     * @param callback 回调，见@ILiveCallBack， onSuccess，携带课堂id标识，该标识很重要，唯一标识课堂资源，业务方需要结合自己的业务维护该资源。若出错，则通过onError返回。
      */
     public void createClassroom(@NonNull final EduClassroomOpion classroomOpion, @NonNull final ILiveCallBack<String> callback);
 
@@ -187,15 +185,15 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     /**
      * 解散课堂（老师下课，后台会回收改课堂资源）
      *
-     * @param classId
-     * @param callback
+     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@EduSDK#createClassroom
+     * @param callback 回调
      */
     public void dismissClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
 
     /**
      * 中途退出课堂，可重新进入
      *
-     * @param classId  课堂id
+     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@EduSDK#createClassroom
      * @param callback 回调
      */
     public void quitClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
@@ -283,7 +281,7 @@ EduSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     
 ## 白板管理
 白板SDK的业务接口不通过EduManager传递，直接通过该模块的对外接口管理（如Android中的WhiteboardManager）对外暴露所有功能接口。
-详见[《Android白板SDK使用手册》](http://git.code.oa.com/tomzhu/ConfSDKDoc/blob/master/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3/Android%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md)
+详见[《Android白板SDK使用手册》](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/Android/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md)
 	
 ## 同步白板历史消息
 备份和恢复历史白板数据由EduSDK内部完成，不需对外暴露。
