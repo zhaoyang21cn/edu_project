@@ -47,9 +47,9 @@ TICSDK融合了互动视频、云通讯（IMSDK、COS服务、电子白板等腾
 
 ![](./资源文件/UML类图.png)
 
-主要业务接口有**TicManager**和白板SDK的**WhiteboardManager**，**WhiteboardView**为白板数据视图控件；
+主要业务接口有**TICManager**和白板SDK的**WhiteboardManager**，**WhiteboardView**为白板数据视图控件；
 
-**TicManager**提供简单的课堂管理，如课堂资源申请和销毁，AV房间的互动（如摄像头、麦克风设备开关、文字互动以及屏幕分享和播片等互动）；
+**TICManager**提供简单的课堂管理，如课堂资源申请和销毁，AV房间的互动（如摄像头、麦克风设备开关、文字互动以及屏幕分享和播片等互动）；
 
 **WhiteboardManager**主要是白板业务的管理，如白板绘制、撤销、重做等，PC以及Web端还提供了展示课堂文档（存储、转码及展示）等服务。
 

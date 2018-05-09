@@ -21,10 +21,10 @@
 
 | 类                  	| 说明             |
 | ------------------	| --------------- |
-| TicSDKConfig     		|  教育SDK参数配置类 |
-| TicSDK     			 	|  教育SDK总入口 	 |
-| TicClassroomOption		|  课堂参数配置类 |
-| TicManager    			|  教育SDK业务管理类 |
+| TICSDKConfig     		|  教育SDK参数配置类 |
+| TICSDK     			 	|  教育SDK总入口 	 |
+| TICClassroomOption		|  课堂参数配置类 |
+| TICManager    			|  教育SDK业务管理类 |
 | WhiteboardManager    			|  白板业务管理类 |
 | IClassroomIMListener | 课堂IM消息监听接口 |
 | IClassroomWhiteboardListener | 课堂白板绘制数据回调监听接口|
@@ -36,7 +36,7 @@
 ![](../../资源文件/UML类图.png)
 
 
-### TicSDKConfig
+### TICSDKConfig
 SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参数，需要由业务传入。主要如下：
 
 | 主要配置项             |类型     			| 说明                |
@@ -87,8 +87,8 @@ SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参�
 ```
 
 
-### TicSDK
-TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作，主要接口如下：
+### TICSDK
+TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作，主要接口如下：
 
 | 主要方法                  	| 说明             |
 | ------------------	| ---------------       |
@@ -101,14 +101,13 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
      * @param config 初始化配置参数
      * @return
      */
-    private int initSDK(TicSDKConfig config, ...) {
-        TicSDKConfig = config;
-        // TODO: 2018/4/27 调用TicManager进行初始化
+    private int initSDK(TICSDKConfig config, ...) {
+        // TODO: 2018/4/27 调用TICManager进行初始化
         return 0;
     }
 ```
 
-### TicClassroomOption
+### TICClassroomOption
 课堂参数配置类，主要是用于创建课堂或者加入课堂时的参数配置，可用于配置是否开启音视频、白板等功能；暂时定义如下（还不够完整，需要持续更新）：
 
 | 主要配置项             |类型     			| 说明                |
@@ -134,7 +133,7 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 
 
 
-### TicManager
+### TICManager
 课堂业务管理类，负责课堂管理和课堂互动管理等主要业务。主要业务接口如下：
 
 | 主要接口                  	| 说明（括号里标识改接口为某端特有）             |
@@ -161,7 +160,7 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 
 ```java
 
-	public int init(@NonNull  TicSDKConfig config) {
+	public int init(@NonNull  TICSDKConfig config) {
         // TODO: 2018/4/27 登陆IM, 初始化ilivesdk
         return 0;
     }
@@ -169,24 +168,24 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     /**
      * 根据参数创建课堂
      *
-     * @param classroomOpion 创建课堂的配置参数，详见@TicClassroomOpion
+     * @param classroomOpion 创建课堂的配置参数，详见@TICClassroomOpion
      * @param callback 回调，见@ILiveCallBack， onSuccess，携带课堂id标识，该标识很重要，唯一标识课堂资源，业务方需要结合自己的业务维护该资源。若出错，则通过onError返回。
      */
-    public void createClassroom(@NonNull final TicClassroomOpion classroomOpion, @NonNull final ILiveCallBack<String> callback);
+    public void createClassroom(@NonNull final TICClassroomOpion classroomOpion, @NonNull final ILiveCallBack<String> callback);
 
     /**
      * 根据参数配置和课堂id加入互动课堂中
      *
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TicSDK#createClassroom
+     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
      * @param callback 回调
      */
-    public void joinClassroom(@NonNull final String classId, @NonNull final TicClassroomOpion classroomOpion, @Nullable final ILiveCallBack callback);
+    public void joinClassroom(@NonNull final String classId, @NonNull final TICClassroomOpion classroomOpion, @Nullable final ILiveCallBack callback);
     }
 
     /**
      * 解散课堂（老师下课，后台会回收改课堂资源）
      *
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TicSDK#createClassroom
+     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
      * @param callback 回调
      */
     public void dismissClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
@@ -194,7 +193,7 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     /**
      * 中途退出课堂，可重新进入
      *
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TicSDK#createClassroom
+     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
      * @param callback 回调
      */
     public void quitClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
@@ -281,8 +280,8 @@ TicSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 ```    
     
 ## 白板管理
-白板SDK的业务接口不通过TicManager传递，直接通过该模块的对外接口管理（如Android中的WhiteboardManager）对外暴露所有功能接口。
+白板SDK的业务接口不通过TICManager传递，直接通过该模块的对外接口管理（如Android中的WhiteboardManager）对外暴露所有功能接口。
 详见[《Android白板SDK使用手册》](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/Android/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md)
 	
 ## 同步白板历史消息
-备份和恢复历史白板数据由TicSDK内部完成，不需对外暴露。
+备份和恢复历史白板数据由TICSDK内部完成，不需对外暴露。
