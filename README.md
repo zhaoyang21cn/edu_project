@@ -18,7 +18,6 @@
 [Web 1.2.0](https://sxb.qcloud.com/web-edu/index.html)
 
 
-
 ### PC DEMO 运行界面图
 ![PC界面截图](./资源文件/PC老师端截图.png)
 
