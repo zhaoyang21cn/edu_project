@@ -101,8 +101,8 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
      * @param config 初始化配置参数
      * @return
      */
-    private int initSDK(TICSDKConfig config, ...) {
-        // TODO: 2018/4/27 调用TICManager进行初始化
+    private void initSDK(int appId, int accountType) {
+        // 初始化TICManager
         return 0;
     }
 ```
@@ -139,6 +139,10 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 | 主要接口                  	| 说明（括号里标识改接口为某端特有）             |
 | ------------------	| ---------------       |
 | init     			 	|  初始化      |
+| login     			 	|  IM登陆      |
+| logout     			 	|  注销登陆      |
+| startRecord     			 	|  开始课堂录制      |
+| stopRecord     			 	|  结束课堂录制      |
 | createClassroom    			|  创建课堂    |
 | joinClassroom    			|  加入互动课堂    |
 | dismissClassroom    			|  解散课堂（老师下课，后台会回收改课堂资源）    |
@@ -159,11 +163,44 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 详细说明如下（**@NonNull**标识该参数**不可为空**；**@Nullable**标识该参数**可以为空**）：
 
 ```java
-
-	public int init(@NonNull  TICSDKConfig config) {
-        // TODO: 2018/4/27 登陆IM, 初始化ilivesdk
-        return 0;
+	/**
+     * 初始化
+     *
+     * @param appId       iLiveSDK appId
+     * @param accountType iLiveSDK账号类型
+     */	
+	public void init(int appId, int accountType) {
+        // 初始化ilivesdk和白板SDK
     }
+        
+    /**
+     * IM登陆
+     *
+     * @param identifier IM用户id
+     * @param userSig    IM用户鉴权票据
+     * @param callBack 回调
+     */
+    public void login(final String identifier, final String userSig, final ILiveCallBack callBack);
+
+    /**
+     * 注销登陆
+     * @param callBack
+     */
+    public void logout(ILiveCallBack callBack);
+
+    /**
+     * 开始课堂录制
+     * @param classId
+     * @param callBack
+     */
+    public void startRecord(final String classId, final ILiveCallBack callBack);
+
+    /**
+     * 结束课堂录制
+     * @param classId
+     * @param callBack
+     */
+    public void stopRecord(@NonNull String classId, final ILiveCallBack callBack);
 
     /**
      * 根据参数创建课堂
