@@ -205,35 +205,25 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     /**
      * 根据参数创建课堂
      *
-     * @param classroomOpion 创建课堂的配置参数，详见@TICClassroomOpion
      * @param callback 回调，见@ILiveCallBack， onSuccess，携带课堂id标识，该标识很重要，唯一标识课堂资源，业务方需要结合自己的业务维护该资源。若出错，则通过onError返回。
      */
-    public void createClassroom(@NonNull final TICClassroomOpion classroomOpion, @NonNull final ILiveCallBack<String> callback);
+    public void createClassroom(@@NonNull final ILiveCallBack<String> callback);
 
     /**
      * 根据参数配置和课堂id加入互动课堂中
-     *
      * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
+     * @param classroomOpion 创建课堂的配置参数，详见@TICClassroomOpion
      * @param callback 回调
      */
     public void joinClassroom(@NonNull final String classId, @NonNull final TICClassroomOpion classroomOpion, @Nullable final ILiveCallBack callback);
     }
 
-    /**
-     * 解散课堂（老师下课，后台会回收改课堂资源）
-     *
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
-     * @param callback 回调
-     */
-    public void dismissClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
 
     /**
-     * 中途退出课堂，可重新进入
-     *
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
+     * 退出课堂，退出iLiveSDK的AV房间，学生角色退出群聊和白板通道群组；老师角色则解散这两个群组
      * @param callback 回调
      */
-    public void quitClassroom(@NonNull final String classId, @Nullable final ILiveCallBack callback);
+    public void quitClassroom(@Nullable final ILiveCallBack callback);
 
     /**
      * 打开/关闭摄像头
