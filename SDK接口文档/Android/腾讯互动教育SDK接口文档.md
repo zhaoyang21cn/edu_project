@@ -21,7 +21,6 @@
 
 | 类                  	| 说明             |
 | ------------------	| --------------- |
-| TICSDKConfig     		|  教育SDK参数配置类 |
 | TICSDK     			 	|  教育SDK总入口 	 |
 | TICClassroomOption		|  课堂参数配置类 |
 | TICManager    			|  教育SDK业务管理类 |
