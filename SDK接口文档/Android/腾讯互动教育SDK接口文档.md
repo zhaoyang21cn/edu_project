@@ -28,63 +28,13 @@
 | WhiteboardManager    			|  白板业务管理类 |
 | IClassroomIMListener | 课堂IM消息监听接口 |
 | IClassroomWhiteboardListener | 课堂白板绘制数据回调监听接口|
-| IClassroomVideoDisconnectListener | 互动视频流异常退出监听接口|
+| IClassEventListener | 课堂事件监听器|
 
 
 **关系类图如下：**
 
 ![](../../资源文件/UML类图.png)
 
-
-### TICSDKConfig
-SDK参数配置类。主要是使用iLiveSDK、IM和COS服务所需的关键参数，需要由业务传入。主要如下：
-
-| 主要配置项             |类型     			| 说明                |
-| ------------------	| -------------	| ---------------    |
-| identifier     		|	String 		|  IM用户id      |
-| userSig     			| 	String			|  IM用户鉴权票据      |
-| appId     				|	int	 			|  iLiveSDK的appId      |
-| accountType     		|	int	 			|  iLiveSDK的账号类型      |
-| cosAppId     			| 	String			|  COS服务的appId      |
-| cosBucket    			|	String			|  COS中用于存储数据的容器      |
-| cosSign    			 	|	String			|  COS签名信息，用于上传文件至COS服务器      |
-| cosRegion    			|	String			|  COS域名中的地域信息      |
-
-```java
-	/**
-     * IM用户id
-     */
-    private String identifier = null;
-    /**
-     * IM用户鉴权票据
-     */
-    private String userSig = null;
-    /**
-     * iLiveSDK的appId，详见https://cloud.tencent.com/document/product/269/1508
-     */
-    private int appid;
-    /**
-     * iLiveSDK的账号类型
-     */
-    private int accountType;
-    /**
-     * COS服务的appId，详见https://cloud.tencent.com/document/product/436/7751
-     */
-    private int cosAppId;
-    /**
-     * COS中用于存储数据的容器
-     */
-    private String cosBucket = null;
-    /**
-     * COS签名信息，用于上传文件至COS服务器
-     */
-    private String cosSign = null;
-     /**
-     * COS域名中的地域信息
-     */
-    private String cosSign = null;
-
-```
 
 
 ### TICSDK
@@ -117,7 +67,7 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 | enableWhiteboard		| 	boolean		|  开启白板，默认true，开启      |
 | classroomWhiteboardListener     	|	IClassroomWhiteboardListener|  课堂白板绘制事件回调 |
 | classroomIMListener     	|	IClassroomIMListener|  课堂文字互动消息事件回调 |
-| classroomVideoDisconnectListener     		| IClassroomVideoDisconnectListener			|  互动视频流异常退出监听      |
+| classEventListener     		| IClassEventListener			|  课堂事件监听器     |
 
 回调接口定义如下：
 
@@ -128,7 +78,8 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
 |		| 	onRecvGroupTextMsg		|  开启白板，默认true，开启      |
 |     	|	onRecvGroupCustomMsg|  收到Group文本消息 |
 | **IClassroomWhiteboardListener**  |onDrawData|  白板绘制事件回调 |
-| **IClassroomVideoDisconnectListener**  |onLiveVideoDisconnect|  视频流异常退出 |
+| **IClassEventListener**  |onLiveVideoDisconnect|  视频流异常退出 |
+|   |onClassroomDestroyNotify|  课堂解散通知|
 
 
 
