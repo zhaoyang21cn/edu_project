@@ -28,6 +28,7 @@ TICFileManager.h | 文件管理类，内部封装了腾讯云对象云存储COSS
 
 TICSDK使用的一般流程如下：
 
+![使用流程](https://main.qcloudimg.com/raw/d42a928340d0ee57a0c2a8c701a265f9.png)
 
 <!--```flow
 st=>start: 1. 初始化【initSDK:accountType:】
@@ -83,14 +84,14 @@ st->op1->op2->op3->op4->op5->op6->op7->e
 ```
 该方法需要传入两个参数，uid和userSig，uid为用户ID，userSig为腾讯云后台用来鉴权的用户签名，相当于登录TICSDK的用户密码，由腾讯云后台生成，登录的流程如下：
 
-![](media/15269599798365/15270435684461.png)
+![](https://main.qcloudimg.com/raw/e8a833d3e3e05d1402ea67e754232ff0.png)
 
 终端先以开发者的账号体系登录自己的服务器，然后再由开发者服务器调用腾讯云后台API，来为每一个开发者已有的账号生成对应的userSig，终端拿到userSig之后再调用该登录方法登录TICSDK。
 
 该流程基于腾讯云通信账号集成的独立模式，详见[官方文档](https://cloud.tencent.com/document/product/269/1508)。
 
 当然，在开发调试阶段，用户可以在自己的腾讯云应用控制台使用开发辅助工具，来生成临时的uid和userSig用于开发测试
-![](media/15269599798365/15270447038596.jpg)
+![](https://main.qcloudimg.com/raw/fd6da0bbe51cfa2ccf2faf1d4188c03e.jpg)
 
 
 > 注意：
