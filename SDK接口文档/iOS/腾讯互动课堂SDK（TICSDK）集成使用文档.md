@@ -28,7 +28,8 @@ TICFileManager.h | 文件管理类，内部封装了腾讯云对象云存储COSS
 
 TICSDK使用的一般流程如下：
 
-```flow
+
+<!--```flow
 st=>start: 1. 初始化【initSDK:accountType:】
 op1=>operation: 2. 登录【loginWithUid:userSig:】
 op2=>operation: 3. 创建课堂【createClassroomSucc:】
@@ -42,7 +43,7 @@ e=>end: 7. 登出【logout:】
 
 st->op1->op2->op3->op4->op5->op6->op7->e
 
-```
+```-->
  
  > 其中5.1、5.2、5.3 代表课堂内操作，顺序不固定
 
