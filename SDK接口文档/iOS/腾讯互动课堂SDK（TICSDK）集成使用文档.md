@@ -11,12 +11,6 @@
 
 先总体说明下SDK中暴露的公开头文件的主要功能：
 
-<style>
-table td:nth-child(1) {
-    white-space: nowrap; 
-}
-</style>
-
 类名 | 主要功能
 --------- | ---------
 TICSDK.h | 整个SDK的入口类，提供了SDK【初始化】以及【获取版本号】的方法
@@ -28,7 +22,8 @@ TICFileManager.h | 文件管理类，内部封装了腾讯云对象云存储COSS
 
 TICSDK使用的一般流程如下：
 
-![使用流程](https://main.qcloudimg.com/raw/d42a928340d0ee57a0c2a8c701a265f9.png)
+<img src="https://main.qcloudimg.com/raw/d42a928340d0ee57a0c2a8c701a265f9.png" width = 60% height = 60% alt="使用流程" align=center />
+
 
 <!--```flow
 st=>start: 1. 初始化【initSDK:accountType:】
