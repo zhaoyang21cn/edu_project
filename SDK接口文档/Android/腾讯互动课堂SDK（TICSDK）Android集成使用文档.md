@@ -281,7 +281,7 @@ if (主进程) {
 
 ### 3.7 白板相关操作
 
-白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见![Android白板SDK使用手册](./Android白板SDK使用手册.md) 。
+白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](./Android白板SDK使用手册.md) 。
 
 ### 3.8 IM相关操作
 
