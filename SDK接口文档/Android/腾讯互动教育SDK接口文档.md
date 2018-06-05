@@ -153,20 +153,20 @@ TICSDK是使用教育服务SDK的总入口，主要服务SDK的初始化工作�
     public void stopRecord(@NonNull String classId, final ILiveCallBack callBack);
 
     /**
-     * 根据参数创建课堂
+     * 创建课堂
      *
-     * @param callback 回调，见@ILiveCallBack， onSuccess，携带课堂id标识，该标识很重要，唯一标识课堂资源，业务方需要结合自己的业务维护该资源。若出错，则通过onError返回。
+     * @param roomId   房间ID，有业务生成和维护。
+     * @param callback 回调，见@ILiveCallBack， onSuccess，创建成功；若出错，则通过onError返回。
      */
-    public void createClassroom(@@NonNull final ILiveCallBack<String> callback);
-
+    public void createClassroom(final int roomId, final ILiveCallBack callback);
+    
     /**
      * 根据参数配置和课堂id加入互动课堂中
-     * @param classId  课堂id标识，由createClassroom接口统一创建和分配。见@TICSDK#createClassroom
-     * @param classroomOpion 创建课堂的配置参数，详见@TICClassroomOpion
+     *
+     * @param option   加入课堂参数选项。见@{TICClassroomOption}
      * @param callback 回调
      */
-    public void joinClassroom(@NonNull final String classId, @NonNull final TICClassroomOpion classroomOpion, @Nullable final ILiveCallBack callback);
-    }
+    public void joinClassroom(@NonNull final TICClassroomOption option, final ILiveCallBack callback);
 
 
     /**
