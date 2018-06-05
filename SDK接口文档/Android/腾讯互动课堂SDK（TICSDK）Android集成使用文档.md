@@ -28,12 +28,11 @@ TICSDK仅支持gradle的集成方式。
 并在defaultConfig中配置abiFilters信息
  
  ```
- 	defaultConfig {
-        ...
-
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a'
-        }
+	defaultConfig {
+   		...
+		ndk {
+			abiFilters 'armeabi', 'armeabi-v7a'
+      }
     }
  ```	
  	
@@ -55,17 +54,17 @@ WhiteboardView | 白板控件
 TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和白板数据信息的。开发者可以直接使用或者集成，添加自己业务需要的特性。如Demo：
 
 ```xml
-            <com.tencent.ticsdk.demo.views.LivingVideoView
-                android:id="@+id/av_root_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+<com.tencent.ticsdk.demo.views.LivingVideoView
+	android:id="@+id/av_root_view"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content" />
 
-            <com.tencent.boardsdk.board.WhiteboardView
-                android:id="@+id/whiteboardview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:visibility="invisible" />
+<com.tencent.boardsdk.board.WhiteboardView
+	android:id="@+id/whiteboardview"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:visibility="invisible" />
 ```
 >其中LivingVideoView继承于AVRootView
 
@@ -74,8 +73,8 @@ TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和
 互动直播的AVRootView控件，构建出实例后，需要设置给TICSDK内部，如：
 
 ```java
-	livingVideoView = (LivingVideoView) findViewById(R.id.av_root_view);
-   TICManager.getInstance().setAvRootView(livingVideoView);
+	LivingVideoView livingVideoView = (LivingVideoView) findViewById(R.id.av_root_view);
+	TICManager.getInstance().setAvRootView(livingVideoView);
 ```
 关于AVRootView更多使用，请参考
 [Android渲染指引文档](https://github.com/zhaoyang21cn/iLiveSDK_Android_Suixinbo/blob/master/doc/ILiveSDK/AndroidRenderIntr.md)
@@ -155,8 +154,7 @@ if (主进程) {
 登出方法比较简单，如下：
 
 ```java
-> TICManager.java
-
+	> TICManager.java
     /**
      * 注销登陆
      *
@@ -172,8 +170,7 @@ if (主进程) {
 登录成功之后，就可以创建或者加入课堂了，创建课堂接口如下，创建成功会在成功回调中返回创建课堂的 classID（classID是一个课堂的唯一标识）：
 
 ```java
-> TICManager.java
-
+	> TICManager.java
     /**
      * 根据参数创建课堂
      * @param roomId 房间ID，有业务生成和维护。
@@ -187,7 +184,7 @@ if (主进程) {
 * 加入课堂
 
 ```java
-> TICManager.java
+	> TICManager.java
 
     /**
      * 根据参数配置和课堂id加入互动课堂中
@@ -272,7 +269,7 @@ if (主进程) {
 * 退出课堂
 
 ```java
-> TICManager.java
+	> TICManager.java
 
     /**
      * 退出课堂，退出iLiveSDK的AV房间，学生角色退出群聊和白板通道群组；老师角色则解散这两个群组
@@ -375,6 +372,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 这部分功能封装于腾讯云互动直播SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、切换摄像头、打开/关闭麦克风、打开/关闭扬声器等，具体如下：
 
 ```java
+	> TICManager.java
 	/**
      * 打开/关闭摄像头
      *
@@ -432,4 +430,10 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 以上协议方法分别代表有人加入课堂，有人退出课堂和课堂被解散的回调，开发者可以根据自己的业务需求，对回调事件进行相应的处理，比如：在收到课堂解散回调时（老师退出课堂即触发该回调），课堂内的学生端可以弹出一个提示框，提示学生课堂已经结束。
 
+
+## 4.常见问题
+### 4.1.**AvRootView**与**WhiteboardView**叠加时白板无法显示。
+
+AvRootView和WhiteboardView都是集成SurfaceView的，SurfaceView叠加显示时会有异常。
+通过SurfaceView的setZOrderMediaOverlay(true);即可解决。
 
