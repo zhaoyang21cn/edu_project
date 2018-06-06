@@ -22,26 +22,30 @@ TICFileManager.h | 文件管理类，内部封装了腾讯云对象云存储COSS
 
 TICSDK使用的一般流程如下：
 
-<img src="https://main.qcloudimg.com/raw/d42a928340d0ee57a0c2a8c701a265f9.png" width = 60% height = 60% alt="使用流程" align=center />
+<img src="https://main.qcloudimg.com/raw/ad9baefa8be1c7da8d82e98508bda4a0.png" width = 60% height = 60% alt="使用流程" align=center />
 
 
 <!--```flow
 st=>start: 1. 初始化【initSDK:accountType:】
-op1=>operation: 2. 登录【loginWithUid:userSig:】
-op2=>operation: 3. 创建课堂【createClassroomSucc:】
-op3=>operation: 4. 加入课堂（设置课堂事件代理和IM消息代理）【joinClassroom:option:】
-op4=>subroutine: 5.1 创建并添加白板，进行白板相关操作【addBoardView:】
-op5=>subroutine: 5.2 音视频相关操作
-op6=>subroutine: 5.3 Im相关操作
-op7=>operation: 6. 退出课堂【quitClassroomSucc:】
-e=>end: 7. 登出【logout:】
+op0=>operation: 2. 配置COS云存储（可选）【configCOS:】
+op1=>operation: 3. 登录【loginWithUid:userSig:】
+op2=>operation: 4. 创建课堂【createClassroomWithRoomID:】
+op3=>operation: 5. 加入课堂（设置课堂事件代理和IM消息代理）【joinClassroom:option:】
+op4=>subroutine: 6.1 创建并添加白板，进行白板相关操作【addBoardView:】
+op5=>subroutine: 6.2 音视频相关操作
+op6=>subroutine: 6.3 Im相关操作
+op7=>operation: 7. 退出课堂【quitClassroomSucc:】
+e=>end: 8. 登出【logout:】
 
 
-st->op1->op2->op3->op4->op5->op6->op7->e
+st->op0->op1->op2->op3->op4->op5->op6->op7->e
 
 ```-->
  
- > 其中5.1、5.2、5.3 代表课堂内操作，顺序不固定
+> 其中：
+> 步骤2为可选步骤，如果您的APP中需要上传课件，图片等功能，则需要配置COS云存储
+> 步骤4为老师端特有步骤，学生在得知课堂ID之后，可直接加入课堂
+> 步骤6.1、6.2、6.3 代表课堂内操作，顺序不固定
 
 下面将SDK按照功能划分，遵循一般的使用顺序，介绍一下`TICSDK`中各功能的使用方法和注意点:
 
@@ -63,7 +67,43 @@ st->op1->op2->op3->op4->op5->op6->op7->e
 ```
 初始化方法很简单，但是开发者在初始化之前必须保证已经在[腾讯云后台](https://console.cloud.tencent.com/rav)注册成功，并创建了应用，这样才能拿到腾讯云后台分配的SDKAppID和accountType。
 
-### 3.4 登录/登出
+### 3.4 COS配置（可选）
+COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/6225)，如果您的APP中需要用到上传图片，文件到白板上展示的功能，则需要先在腾讯云对象存储开通了服务，然后再在SDK中将相关参数配置好，TICSDK内部会将调用SDK接口上传的图片，文件上传到您配置的COS云存储桶中。
+
+具体配置接口如下：
+
+```objc
+> TICFileManager.h
+
+/**
+ COS配置类，其属性参数都可从腾讯云COS控制台获取到
+ */
+@interface TICCosConfig : NSObject
+
+/// @brief COS服务的appId，用以标识资源
+@property (nonatomic, copy) NSString *cosAppID;
+/// @brief 存储桶名称
+@property (strong, nonatomic) NSString *bucket;
+/// @brief 服务地域名称
+@property (nonatomic, copy) NSString *region;
+/// @brief 开发者拥有的项目身份识别 ID，用以身份认证
+@property (nonatomic, copy) NSString *secretID;
+/// @brief 开发者拥有的项目身份密钥
+@property (nonatomic, copy) NSString *secretKey;
+
+@end
+
+/**
+ @brief COS存储配置
+
+ @param config 配置对象
+ @see TICCosConfig
+ @return 0 配置成功，否则配置失败(返回错误码 8021，表示参数无效)
+ */
+- (int)configCOS:(TICCosConfig *)config;
+```
+
+### 3.5 登录/登出
 初始化完成之后，因为涉及到IM消息的收发，所以还必须先登录：
 
 ```objc
@@ -106,7 +146,7 @@ st->op1->op2->op3->op4->op5->op6->op7->e
 - (void)logout:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
 ```
 
-### 3.5 课堂管理
+### 3.6 课堂管理
 
 * 创建课堂
 
@@ -183,7 +223,7 @@ st->op1->op2->op3->op4->op5->op6->op7->e
 
 学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，可能内的资源将会被回收，所以开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
 
-### 3.6 白板相关操作
+### 3.7 白板相关操作
 
 TICSDK 中只有一个关于白板的接口，就是添加一个白板视图对象：
 
@@ -203,7 +243,7 @@ TICSDK 中只有一个关于白板的接口，就是添加一个白板视图对�
 开发者使用时，应该创建一个boardView对象，并将其添加到TICManager中（同时只能添加一个，重复添加以后添加的为准），然后直接调用TXBoardView中的接口来操作白板即可，详见【TXBoardView白板SDK使用手册】。
 
 
-#### 3.7 IM相关操作
+#### 3.8 IM相关操作
 
 IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只封装了一些常用接口：
 
@@ -286,7 +326,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 这4个代理方法，分别对应了前面4个消息发送的方法，对应类型的消息会在对应类型的代理方法中回调给课堂内所有成员（发消息本人除外），其他端收到后可以将消息展示在界面上。
 
-### 3.8 音视频相关操作
+### 3.9 音视频相关操作
 
 这部分功能封装于腾讯云互动直播SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、麦克风，切换当前相机方向等，如下：
 
@@ -331,7 +371,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 课堂内的音视频事件都会通过该方法回调到其他端（包括操作者的），event表示事件类型（开关摄像头等），user表示触发事件的用户ID，其他段触发回调之后，可以根据事件类型，进行相应的处理，比如，收到开摄像头事件，就添加一个对应用户的渲染视图，收到关摄像头时间，就移除对应用户的渲染视图（详细用法可以参照demo）。
 
 
-### 3.9 课堂内其他事件监听
+### 3.10 课堂内其他事件监听
 
 进入课堂的配置对象中的课堂事件监听代理还有一些其他的协议方法：
 
@@ -358,5 +398,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 ```
 
 以上协议方法分别代表有人加入课堂，有人退出课堂和课堂被解散的回调，开发者可以根据自己的业务需求，对回调事件进行相应的处理，比如：在收到课堂解散回调时（老师退出课堂即触发该回调），课堂内的学生端可以弹出一个提示框，提示学生课堂已经结束。
+
+
 
 
