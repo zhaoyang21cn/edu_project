@@ -150,64 +150,71 @@ COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/622
 
 * 创建课堂
 
-登录成功之后，就可以创建或者加入课堂了，创建课堂接口如下，创建成功会在成功回调中返回创建课堂的 classID（classID是一个课堂的唯一标识）：
+登录成功之后，就可以创建或者加入课堂了，创建课堂接口如下，创建课堂时需要传入一个`roomID`参数（roomID是一个课堂的唯一标识）：
 
 ```objc
 > TICManager.h
 
-/**
- @brief 创建课堂（成功回调中会返回classID）
+ /**
+ @brief 创建课堂
+ 
+ @param roomID 课堂ID，课堂唯一标识（必须为正整数）
  */
-- (void)createClassroomSucc:(void (^)(NSString *classID))succ failed:(TCIErrorBlock)failed;
+- (void)createClassroomWithRoomID:(int)roomID Succ:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
 ```
 
-创建课堂接口，只是向腾讯云互动课堂后台申请了一个课堂ID，并进行了一些准备工作，老师端创建课堂后还需调用`加入课堂`方法加入课堂。
+创建课堂接口，只是根据传进去的roomID创建了一个IM群组，并进行了一些准备工作，老师端创建课堂后还需调用`加入课堂`方法加入课堂。
 
 * 加入课堂
 
 ```objc
 > TICManager.h
 
+
 /**
- @brief 加入指定classID的课堂
+ @brief 加入指定roomID的课堂
 
- @param classID 创建课堂成功后返回的classID
- @param option 加入课堂配置项
+ @param configOption 加入课堂配置项
  @see TICClassroomOption
+ @discussion 注意：TICClassroomOption的 controlRole 参数必填，该参数代表进房之后使用什么规格音视频参数，参数具体值为客户在腾讯云实时音视频控制台画面设定中配置的角色名（例如：默认角色名为user, 可设置controlRole = @"user"）
  */
-- (void)joinClassroom:(NSString *)classID option:(TICClassroomOption *)option succ:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
+- (void)joinClassroomWithOption:(TICClassroomOption * (^)(TICClassroomOption *option))configOption succ:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
 ```
-
-该接口需要传入两个参数，classID为创建课堂成功后返回的课堂唯一标识，optoin是一个`TICClassroomOption`对象，代表加入课堂时的一些配置：
+该接口需要传入一个配置block `configOption`，该block接收一个方法内部创建好的`TICClassroomOption`默认配置对象，开发者需在该block中修改自定义配置，然后将修改后的option返回，`TICClassroomOption`类如下：
 
 ```objc
 /**
  课堂配置类
  */
-@interface TICClassroomOption : NSObject
-
+@interface TICClassroomOption : ILiveRoomOption
+@property (nonatomic, assign) int roomID; // 课堂ID，课堂的唯一标识（必须为正整数）
 @property (nonatomic, assign) TICClassroomRole role; // 课堂内角色枚举（老师 or 学生）
-@property (nonatomic, assign) BOOL isEnableCamera; // 进入课堂时，是否自动开启摄像头
-@property (nonatomic, assign) BOOL isEnableMic; // 进入课堂时，是否自动开启麦克风
-
-/**
- @brief 课堂事件监听对象
- @see TICClassroomEventListener
- */
-@property (nonatomic, weak) id<TICClassroomEventListener> eventListener;
-
-/**
- @brief IM事件监听对象
- @see TICClassroomIMListener
- */
-@property (nonatomic, weak) id<TICClassroomIMListener> imListener;
+@property (nonatomic, weak) id<TICClassroomEventListener> eventListener; // 课堂事件监听对象
+@property (nonatomic, weak) id<TICClassroomIMListener> imListener; // IM事件监听对象
 
 @end
 ```
+`roomID`即为课堂的唯一标识；`role`表示加入课堂后的角色身份（老师或学生，一般创建课堂的人为老师，其他人应该以学生身份加入课堂）。
 
-基础配置有3个，加入课堂时的角色（老师或学生，一般创建课堂的人为老师，其他人应该以学生身份加入课堂），以及进入课堂时是否自动开启摄像头和麦克风（一般情况下， 老师端进入课堂默认打开摄像头和麦克风，学生端进入课堂默认关系）。
+另外该类还有两个代理对象，用来监听课堂内的一些事件，这个我们后面再说。
 
-该类还有两个代理对象，用来监听课堂内的一些事件，这个我们后面再说。
+为了保证课堂内的正常逻辑和事件都能被监听到，进房时`TICClassroomOption`的这些属性都是必填参数，然后还有一个必填参数为**`controlRole`**，继承自父类`ILiveRoomOption`，该参数代表进房之后使用哪些音视频参数，参数具体值为客户在腾讯云实时音视频控制台画面设定中配置的角色名（例如：默认角色名为user, 可设置controlRole = @"user"），实例代码如下：
+
+```objc
+[[TICManager sharedInstance] joinClassroomWithOption:^TICClassroomOption *(TICClassroomOption *option) {
+    option.roomID = #房间号#;
+    option.role = kClassroomRoleStudent;
+    option.eventListener = #课堂事件监听对象#;
+    option.imListener = #课堂消息监听对象#;
+    option.controlRole = @“user”;
+    return option;
+} succ:^{
+    NSLog(@"进房成功");
+} failed:^(NSString *module, int errId, NSString *errMsg) {
+    NSLog(@"进房失败：%d %@", errId, errMsg);
+}];
+
+```
 
 * 退出课堂
 
@@ -221,7 +228,7 @@ COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/622
 - (void)quitClassroomSucc:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
 ```
 
-学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，可能内的资源将会被回收，所以开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
+学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，课堂内的资源包括课堂的`roomID`将会被回收，所以开发者应尽量保证在加入另一个课堂前，已经退出了前一个课堂。
 
 ### 3.7 白板相关操作
 
