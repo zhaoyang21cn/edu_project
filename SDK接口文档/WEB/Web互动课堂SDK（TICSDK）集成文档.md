@@ -80,6 +80,7 @@ this.ticSdk.on(TICSDK.CONSTANT.EVENT.WEBRTC.REMOTE_STREAM_UPDATE, data => {
 ```
 
 roomID参数：
+
 参数名 | 类型 | 是否必填 | 备注
 --------- | --------- | -----| ---
 roomID | integer | 是 | 由业务方下发，并保证每次下发的roomID是唯一不重复的。
@@ -118,7 +119,8 @@ this.ticSdk.login(loginConfig);
 ```
 
 loginConfig参数：
-参数名 | 是否必填 | 备注
+
+参数名 | 是否必填 | 备注 |
 --------- | --------- | -----
 identifier | 是 | 用户名
 identifierNick | 否 | 用户昵称，不填则使用identifier
