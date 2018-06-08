@@ -14,6 +14,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 ## 2. 集成SDK
 ### 2.1 编译
 在VisualStudio工程里面，`配置属性`->`C/C++`里面添加TICSDK、iLiveSDK、BoardSDK头文件地址
+![](https://main.qcloudimg.com/raw/4cbbb9401a48be2ce163afb48d81245c.png)
 在VisualStudio工程里面，`配置属性`->`链接器`里面添加`TICSDK.lib`、`iLiveSDK.lib`这两个链接库，并配好库文件地址
 ![](https://main.qcloudimg.com/raw/1cd17fb7e0f9e5ed2ffa0b4aa95834dd.png)
 
@@ -55,17 +56,17 @@ TICSDK进出房间开发流程可参考
 
 
 要注意监听如下一些事件回调
-房间网络断开
+* 房间网络断开
 ```objc
 void onLiveVideoDisconnect(int reason, const char *errorinfo, void* data)
 ```
 
-被踢下线
+* 被踢下线
 ```objc
 void onForceOffline();
 ```
 
-房间解散消息
+* 房间解散消息
 ```objc
 void onRecvGroupSystemMsg(const char * msg)
 ```
@@ -83,9 +84,9 @@ m_sdk->getTICWhiteBoardManager()->getRenderWindow()
 注册iliveSDK的两个回调可以得到本地和远程的视频数据
 ```objc
 /**
-@brief 设置本地视频预览回调
-@param OnLocalVideo   回调函数接口
-@param data   用户自定义数据
+* \brief 设置本地视频预览回调
+* \param OnLocalVideo   回调函数接口
+* \param data   用户自定义数据
 */
 virtual void setLocalVideoCallBack(ilive::iLivePreviewCallback OnLocalVideo, void* data = nullptr) = 0;
 
@@ -140,15 +141,15 @@ TICSDK使用的一般流程如下：
 > TICSDK.h (该行表示方法所处文件名，下同)
 
 /**
-@brief 初始化TICSDK
-@param iLiveSDKAppId 腾讯云控制台注册的应用ID
-@param iLiveAccountType腾讯云控制台注册的应用的账号类型
-@return 初始化结果，0代表成功，其他代表失败
+* \brief 初始化TICSDK
+* \param iLiveSDKAppId 腾讯云控制台注册的应用ID
+* \param iLiveAccountType腾讯云控制台注册的应用的账号类型
+* \return 初始化结果，0代表成功，其他代表失败
 */
 virtual int initSDK(int iLiveSDKAppId, int iLiveAccountType) = 0;
 
 ```
-初始化方法很简单，但是开发者在初始化之前必须保证已经在[腾讯云后台](https://console.cloud.tencent.com/rav)注册成功，并创建了应用，这样才能拿到腾讯云后台分配的SDKAppID和accountType。
+初始化方法很简单，传入应用的SDKAppID和accountType即可。但是开发者在初始化之前必须保证已经在[腾讯云后台](https://console.cloud.tencent.com/rav)注册成功，并创建了应用，这样才能拿到腾讯云后台分配的SDKAppID和accountType。
 
 ### 3.4 登录/登出
 初始化完成之后，因为涉及到IM消息的收发，所以还必须先登录：
@@ -157,14 +158,14 @@ virtual int initSDK(int iLiveSDKAppId, int iLiveAccountType) = 0;
 > TICManager.h
 
 /**
-@brief 登录iliveSDK
+* \brief 登录iliveSDK
  
-@param uid    用户id
-@param userSig    用户签名（由腾讯云后台生成）
-@param success 登录成功回调
-@param err      登录错误回调
-@param data   用户自定义数据
-@return 登录结果，0表示成功
+* \param uid    用户id
+* \param userSig    用户签名（由腾讯云后台生成）
+* \param success 登录成功回调
+* \param err      登录错误回调
+* \param data   用户自定义数据
+* \return 登录结果，0表示成功
  */
 int login(const char * id, const char * userSig, ilive::iLiveSucCallback success, ilive::iLiveErrCallback err, void* data);
 ```
@@ -172,11 +173,12 @@ int login(const char * id, const char * userSig, ilive::iLiveSucCallback success
 
 登录的流程如下：
 
-![](https://main.qcloudimg.com/raw/e8a833d3e3e05d1402ea67e754232ff0.png)
+![登陆流程](../../资源文件/TICSDK_Login_UML_Sequence_Diagram.png) 
 
-客户端先以开发者的账号体系登录自己的服务器，然后再由开发者服务器调用腾讯云后台API，来为每一个开发者已有的账号生成对应的userSig，客户端拿到userSig之后再调用该登录方法登录TICSDK。
+终端先以开发者的账号体系登录自己的服务器，来为每一个开发者已有的账号生成对应的userSig，终端拿到userSig之后再调用该登录方法登录TICSDK。
 
 该流程基于腾讯云通信账号集成的独立模式，详见[官方文档](https://cloud.tencent.com/document/product/269/1508)。
+
 
 当然，在开发调试阶段，用户可以在自己的腾讯云应用控制台使用开发辅助工具，来生成临时的uid和userSig用于开发测试
 ![](https://main.qcloudimg.com/raw/fd6da0bbe51cfa2ccf2faf1d4188c03e.jpg)
@@ -194,10 +196,10 @@ int login(const char * id, const char * userSig, ilive::iLiveSucCallback success
 > TICManager.h
 
 /**
-@brief 登出iliveSDK
-@param success 成功回调
-@param err 错误回调
-@param data   用户自定义数据
+* \brief 登出iliveSDK
+* \param success 成功回调
+* \param err 错误回调
+* \param data   用户自定义数据
  */
 void logout(ilive::iLiveSucCallback success, ilive::iLiveErrCallback err, void* data);
 ```
@@ -213,9 +215,9 @@ void logout(ilive::iLiveSucCallback success, ilive::iLiveErrCallback err, void* 
 > TICManager.h
 
 /**
-@brief 创建课堂
-@param roomID 课堂房间ID
-@param listener 创建课堂回调指针
+* \brief 创建课堂
+* \param roomID 课堂房间ID
+* \param listener 创建课堂回调指针
 */
 virtual void createClassroom(uint32_t roomID, IClassroomEventListener* listener) = 0;
 ```
@@ -228,10 +230,10 @@ virtual void createClassroom(uint32_t roomID, IClassroomEventListener* listener)
 > TICManager.h
 
 /**
-@brief 加入课堂
-@param opt 课堂配置类对象
-@param success 加入课堂成功回调
-@param err 加入课堂失败回调
+* \brief 加入课堂
+* \param opt 课堂配置类对象
+* \param success 加入课堂成功回调
+* \param err 加入课堂失败回调
 */
 virtual void joinClassroom(TICClassroomOption& opt, ilive::iLiveSucCallback success, ilive::iLiveErrCallback err, void* data) = 0;
 ```
@@ -269,17 +271,17 @@ public:
 
 
 /**
-@brief 课堂事件监听对象
+* \brief 课堂事件监听对象
 */
 class IClassroomEventListener
 
 /**
-@brief 课堂IM消息监听对象
+* \brief 课堂IM消息监听对象
 */
 class IClassroomIMListener
 
 /**
-@brief 课堂白板消息监听对象
+* \brief 课堂白板消息监听对象
 */
 class IClassroomWhiteboardListener
 ```
@@ -292,9 +294,9 @@ class IClassroomWhiteboardListener
 > TICManager.h
 
 /**
-@brief 退出课堂
-@param success 退出课堂成功回调
-@param err 退出课堂失败回调
+* \brief 退出课堂
+* \param success 退出课堂成功回调
+* \param err 退出课堂失败回调
 */
 virtual void quitClassroom(ilive::iLiveSucCallback success, ilive::iLiveErrCallback err, void* data) = 0;
 ```
@@ -308,21 +310,21 @@ TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等
 > TICManager.h
 
 /**
-@brief 设置COS参数配置
-@param cfg  COS配置
+* \brief 设置COS参数配置
+* \param cfg  COS配置
 */
 virtual void setCosHandler(TICSDKCosConfig cfg) = 0;
 
 /**
-@brief 上传文件到cos
-@param fileName   文件名
+* \brief 上传文件到cos
+* \param fileName   文件名
 */
 virtual void uploadFile(const std::wstring& fileName) = 0;
 
 /**
-@brief 上传文件到cos
-@param fileName   文件名
-@param sig			cos签名
+* \brief 上传文件到cos
+* \param fileName   文件名
+* \param sig			cos签名
 */
 virtual void uploadFile(const std::wstring& fileName, std::string& sig) = 0;
 
@@ -339,17 +341,18 @@ virtual void onUploadProgress(int percent) = 0;
 /**
 * \brief 通知文件上传结果
 * \param success	上传结果
+* \param code	    错误码
 * \param objName	cos文件名
 * \param fileName	本地文件名
 */
-virtual void onUploadResult(bool success, std::wstring objName, std::wstring fileName) = 0;
+virtual void onUploadResult(bool success, int code, std::wstring objName, std::wstring fileName) = 0;
 
 /**
 * \brief 通知PPT文件上传结果
 * \param success	上传结果
 * \param objName	cos文件名
 * \param fileName	本地文件名
-* \param fileId	    文件Id
+* \param pageCount	  文件页数，若结果失败则为错误码
 */
 virtual void onFileUploadResult(bool success, std::wstring objName,std::wstring fileName, int pageCount) = 0;
 ```
@@ -362,110 +365,110 @@ TICSDK 中将白板SDK封装在一个白板管理类当中，用户可在进入�
 > TICSDK.h
 
 /**
-@brief 初始化白板SDK，在加入房间之后
-@param id 用户id
-@param classID 课堂ID
-@param parentHWnd 白板父窗口句柄
-@return 结果，0表示成功
+* \brief 初始化白板SDK，在加入房间之后
+* \param id 用户id
+* \param classID 课堂ID
+* \param parentHWnd 白板父窗口句柄
+* \return 结果，0表示成功
 */
 virtual int initWhiteBoard(const char* id, HWND parentHWnd = nullptr) = 0;
 
 /**
-@brief 初始化白板SDK
-@param boardsdk 外部初始化的sdk指针
-@return 结果，0表示成功
+* \brief 初始化白板SDK
+* \param boardsdk 外部初始化的sdk指针
+* \return 结果，0表示成功
 */
 virtual int initWhiteBoard(BoardSDK* boardsdk) = 0;
 
 /**
-@brief 获取白板管理类实例指针
-@return 白板管理类指针
+* \brief 获取白板管理类实例指针
+* \return 白板管理类指针
 */
 virtual TICWhiteboardManager* getTICWhiteBoardManager() = 0;
 ```
-开发者可以通过getTICWhiteBoardManager()获得白板管理类里面封装好的方法，也可以直接调用BoardSDK.h里面的接口对白板进行操作。
+开发者可以通过getTICWhiteBoardManager()获得白板管理类里面封装好的方法，也可以直接调用BoardSDK.h里面的接口对白板进行操作，BoardSDK详见[PC白板SDK使用手册](./PC白板SDK使用手册.md) 。
 ```objc
 > TICWhiteboardManager.h
 /**
-@brief 获得白板窗口句柄
+* \brief 获得白板窗口句柄
 */
 virtual HWND getRenderWindow() = 0;
 
 /**
-@brief 清空白板数据
+* \brief 清空白板数据
 */
 virtual void clearWhiteBoard() = 0;
 
 /**
-@brief 使用画板工具
-@param tool  画板工具
+* \brief 使用画板工具
+* \param tool  画板工具
 */
 virtual void useTool(BoardTool tool) = 0;
 
 /**
-@brief 设置线宽
-@param width  宽度
+* \brief 设置线宽
+* \param width  宽度
 */
 virtual void setWidth(uint32_t width) = 0;
 
 /**
-@brief 设置颜色
-@param rgba  颜色RGBA值
+* \brief 设置颜色
+* \param rgba  颜色RGBA值
 */
 virtual void setColor(uint32_t rgba) = 0;
 
 /**
-@brief 设置填充
-@param fill  是否填充
+* \brief 设置填充
+* \param fill  是否填充
 */
 virtual void setFill(bool fill) = 0;
 
 /**
-@brief 撤销
+* \brief 撤销
 */
 virtual void undo() = 0;
 
 /**
-@brief 重做
+* \brief 重做
 */
 virtual void redo() = 0;
 
 /**
-@brief 删除
+* \brief 删除
 */
 virtual void remove() = 0;
 
 /**
-@brief 清除白板
+* \brief 清除白板
 */
 virtual void clear() = 0;
 
 /**
-@brief 清除涂鸦
+* \brief 清除涂鸦
 */
 virtual void clearDraws() = 0;
 
 /**
-@brief 设置白板背景
-@param url  背景图地址
-@param pageID 白板ID，默认为当前白板
+* \brief 设置白板背景
+* \param url  背景图地址
+* \param pageID 白板ID，默认为当前白板
 */
 virtual void setBackground(const wchar_t *url, const char *pageID = nullptr) = 0;
 
 /**
-@brief 设置白板背景色
-@param rgba  颜色RGBA值
+* \brief 设置白板背景色
+* \param rgba  颜色RGBA值
 */
 virtual void setBackgroundColor(uint32_t rgba) = 0;
 
 /**
-@brief 设置全局背景色
-@param rgba  颜色RGBA值
+* \brief 设置全局背景色
+* \param rgba  颜色RGBA值
 */
 virtual void setAllBackgroundColor(uint32_t rgba) = 0;
 
 /**
-@brief 拉取离线数据
+* \brief 拉取离线数据
 */
 virtual void getBoardData() = 0;
 ```
@@ -476,36 +479,36 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 ```objc
 /**
-@brief 发送C2C文本消息
-@param identifier   消息接收者
-@param msg  发送内容
-@param OnSuccess 发送成功回调
-@param OnError   发送失败回调
+* \brief 发送C2C文本消息
+* \param identifier   消息接收者
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
 */
 virtual void sendC2CTextMsg(const char * identifier, const char * msg) = 0;
 
 /**
-@brief 发送群文本消息
-@param msg  发送内容
-@param OnSuccess 发送成功回调
-@param OnError   发送失败回调
+* \brief 发送群文本消息
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
 */
 virtual void sendGroupTextMsg(const char * msg) = 0;
 
 /**
-@brief 发送C2C自定义消息
-@param identifier   消息接收者
-@param msg  发送内容
-@param OnSuccess 发送成功回调
-@param OnError   发送失败回调
+* \brief 发送C2C自定义消息
+* \param identifier   消息接收者
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
 */
 virtual void sendC2CCustomMsg(const char * identifier, const char * msg) = 0;
 
 /**
-@brief 发送群组自定义消息
-@param msg  发送内容
-@param OnSuccess 发送成功回调
-@param OnError   发送失败回调
+* \brief 发送群组自定义消息
+* \param msg  发送内容
+* \param OnSuccess 发送成功回调
+* \param OnError   发送失败回调
 */
 virtual void sendGroupCustomMsg(const char * msg) = 0;
 ```
@@ -575,53 +578,53 @@ virtual void onSendWBData(int err, const char * errMsg) = 0;
 
 ```objc
 /**
-@brief 打开/关闭摄像头
-@param enable   true：打开默认摄像头；false：关闭
+* \brief 打开/关闭摄像头
+* \param enable   true：打开默认摄像头；false：关闭
 */
 virtual void enableCamera(bool bEnable) = 0;
 
 /**
-@brief 切换摄像头
-@param cameraId   摄像头设备标识
+* \brief 切换摄像头
+* \param cameraId   摄像头设备标识
 */
 virtual void switchCamera(const char* cameraId) = 0;
 
 /**
-@brief 打开/关闭麦克风
-@param enable   true：打开默认麦克风；false：关闭
+* \brief 打开/关闭麦克风
+* \param enable   true：打开默认麦克风；false：关闭
 */
 virtual void enableMic(bool bEnable) = 0;
 
 /**
-@brief 切换麦克风
-@param deviceID   麦克风设备标识
+* \brief 切换麦克风
+* \param deviceID   麦克风设备标识
 */
 virtual void switchMic(const char* deviceID) = 0;
 
 /**
-@brief 打开/关闭扬声器
-@param enable   true：打开默认扬声器；false：关闭
+* \brief 打开/关闭扬声器
+* \param enable   true：打开默认扬声器；false：关闭
 */
 virtual void enablePlayer(bool bEnable) = 0;
 
 /**
-@brief 打开屏幕分享(指定窗口)
-@param hWnd 所要捕获的窗口句柄(NULL表示全屏)
-@param fps 捕获帧率
+* \brief 打开屏幕分享(指定窗口)
+* \param hWnd 所要捕获的窗口句柄(NULL表示全屏)
+* \param fps 捕获帧率
 */
 virtual void openScreenShare(HWND hWnd, uint32& fps) = 0;
 
 /**
-@brief 打开屏幕共享(指定区域)
-@param left/top/right/bottom 所要捕获屏幕画面的区域的左上角坐标(left, top)和右下角坐标(right, bottom)
-@param fps 捕获帧率
+* \brief 打开屏幕共享(指定区域)
+* \param left/top/right/bottom 所要捕获屏幕画面的区域的左上角坐标(left, top)和右下角坐标(right, bottom)
+* \param fps 捕获帧率
 */
 virtual void openScreenShare(int32& left, int32& top, int32& right, int32& bottom, uint32& fps) = 0;
 
 /**
-@brief 动态修改屏幕分享的区域
-@param left/top/right/bottom 所要捕获屏幕画面的区域的左上角坐标(left, top)和右下角坐标(right, bottom)
-@param fps 捕获帧率
+* \brief 动态修改屏幕分享的区域
+* \param left/top/right/bottom 所要捕获屏幕画面的区域的左上角坐标(left, top)和右下角坐标(right, bottom)
+* \param fps 捕获帧率
 */
 virtual int changeScreenShareSize(int32& left, int32& top, int32& right, int32& bottom) = 0;
 
