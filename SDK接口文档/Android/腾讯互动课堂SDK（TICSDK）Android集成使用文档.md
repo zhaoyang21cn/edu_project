@@ -1,11 +1,11 @@
 # 腾讯互动课堂SDK（TICSDK）集成使用文档
 ## 1. 简介
-腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案的 iOS 静态库，它对`iLiveSDK`、`boardsdk`和`cosxml`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
+腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案接入工具，它对`iLiveSDK`、`boardsdk`和`cosxml`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK暂时不提供文档管理相关功能；
 
 ## 2.准备工作
-TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请对点时间了解以上服务的基本概念和基本业务流程。
+TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK指引文档](./Android白板SDK使用手册.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [互动直播](https://cloud.tencent.com/document/product/268/8424)
 
@@ -28,26 +28,26 @@ allprojects {
 第二步，在主工程的buidle.gradle文件中，添加dependencies.
 
 ```
-    // COS SDK模块
-    compile 'com.tencent.qcloud:cosxml:5.4.4'
-    // 互动直播模块
-    compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.5'
-    // 互动教育模块
-    compile 'com.tencent.ticsdk:ticsdk:0.0.1.3'
-    // 白板SDK模块
-    compile 'com.tencent.boardsdk:boardsdk:1.2.3.1'
+// COS SDK模块
+compile 'com.tencent.qcloud:cosxml:5.4.4'
+// iLiveSDK模块
+compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.5'
+// 互动教育模块
+compile 'com.tencent.ticsdk:ticsdk:0.0.1.3'
+// 白板SDK模块
+compile 'com.tencent.boardsdk:boardsdk:1.2.3.1'
 ```    
 
 并在defaultConfig中配置abiFilters信息
  
  ```
-	defaultConfig {
-   		...
-		ndk {
-		   // 设置支持的so库架构
-			abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-      }
-    }
+defaultConfig {
+	...
+	ndk {
+		// 设置支持的so库架构
+		abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+	}
+}
  ```	
  	
 ### 混淆配置
@@ -94,8 +94,8 @@ TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和
 互动直播的AVRootView控件，构建出实例后，需要设置给TICSDK内部，如：
 
 ```java
-	LivingVideoView livingVideoView = (LivingVideoView) findViewById(R.id.av_root_view);
-	TICManager.getInstance().setAvRootView(livingVideoView);
+LivingVideoView livingVideoView = (LivingVideoView) findViewById(R.id.av_root_view);
+TICManager.getInstance().setAvRootView(livingVideoView);
 ```
 关于AVRootView更多使用，请参考
 [Android渲染指引文档](https://github.com/zhaoyang21cn/iLiveSDK_Android_Suixinbo/blob/master/doc/ILiveSDK/AndroidRenderIntr.md)
@@ -131,12 +131,10 @@ TICSDK使用的一般流程如下：
 > 如果开发者App中用到了多进程，初始化时需要注意避免重复初始化，如下：
 
 ```
-
-if (主进程) {    
-	// 仅在主线程初始化
-	TICSDK.getInstance().initSDK(this, Constants.APPID, Constants.ACCOUNTTYPE);
-}
-
+    if (主进程) {    
+	    // 仅在主线程初始化
+	    TICSDK.getInstance().initSDK(this, Constants.APPID, Constants.ACCOUNTTYPE);
+    }
 ```
 
 
@@ -154,11 +152,12 @@ if (主进程) {
      */
     public void login(final String identifier, final String userSig, final ILiveCallBack callBack);
 ```
-该方法需要传入两个参数，identifier和userSig，identifier为用户ID，userSig为腾讯云后台用来鉴权的用户签名，相当于登录TICSDK的用户密码，由腾讯云后台生成，登录的流程如下：
+该方法需要传入两个参数，identifier和userSig，identifier为用户ID，userSig为腾讯云后台用来鉴权的用户签名，登录的流程如下：
 
-![](https://main.qcloudimg.com/raw/e8a833d3e3e05d1402ea67e754232ff0.png)
+![登陆流程](../../TICSDK_Login_UML_Sequence_Diagram.png) 
 
-终端先以开发者的账号体系登录自己的服务器，然后再由开发者服务器调用腾讯云后台API，来为每一个开发者已有的账号生成对应的userSig，终端拿到userSig之后再调用该登录方法登录TICSDK。
+
+终端先以开发者的账号体系登录自己的服务器，来为每一个开发者已有的账号生成对应的userSig，终端拿到userSig之后再调用该登录方法登录TICSDK。
 
 该流程基于腾讯云通信账号集成的独立模式，详见[官方文档](https://cloud.tencent.com/document/product/269/1508)。
 
@@ -188,7 +187,7 @@ if (主进程) {
 
 * 创建课堂
 
-登录成功之后，就可以创建或者加入课堂了，创建课堂接口如下，创建成功会在成功回调中返回创建课堂的 classID（classID是一个课堂的唯一标识）：
+登录成功之后，就可以创建或者加入课堂了，创建课堂接口如下：
 
 ```java
     > TICManager.java
@@ -199,8 +198,7 @@ if (主进程) {
      */
     public void createClassroom(final int roomId, final ILiveCallBack callback) {
 ```
-
-创建课堂接口，只是向腾讯云互动课堂后台申请了一个课堂ID，并进行了一些准备工作，老师端创建课堂后还需调用`加入课堂`方法加入课堂。
+>TODO: roomId说明
 
 * 加入课堂
 
@@ -298,7 +296,7 @@ if (主进程) {
     public void quitClassroom(final ILiveCallBack callback) {
 ```
 
-学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，可能内的资源将会被回收，所以开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
+学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁。开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
 
 ### 4.7 白板相关操作
 
