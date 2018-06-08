@@ -3,9 +3,9 @@
 腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案的动态链接库，对`ILiveSDK`、`IMSDK`、`BroadSDK`和`COSSDK`  四个SDK进行了集成封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】，【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
 ## 1.2 准备工作
-TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请对点时间了解以上服务的基本概念和基本业务流程。
+TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请对点时间了解以上服务的基本概念和基本业务流程。
 
-[互动直播](https://cloud.tencent.com/document/product/268/8424)
+[实时音视频](https://cloud.tencent.com/document/product/268/8424)
 
 [云通讯服务（IMSDK）](https://cloud.tencent.com/document/product/269/1504)
 
@@ -203,7 +203,60 @@ virtual void quitClassroom(ilive::iLiveSucCallback success, ilive::iLiveErrCallb
 
 学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，课堂的资源将会被回收，所以开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
 
-### 3.6 白板相关操作
+### 3.6 COS上传相关操作
+
+TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等参数，用户填好参数后通过TICManager的`setCosHandler`方法传给TICSDK。cos上传预览功能被封装在了TICManger里面，调用uploadFile将文件名路径作为参数填入即可。
+```objc
+> TICManager.h
+
+/**
+@brief 设置COS参数配置
+@param cfg  COS配置
+*/
+virtual void setCosHandler(TICSDKCosConfig cfg) = 0;
+
+/**
+@brief 上传文件到cos
+@param fileName   文件名
+*/
+virtual void uploadFile(const std::wstring& fileName) = 0;
+
+/**
+@brief 上传文件到cos
+@param fileName   文件名
+@param sig			cos签名
+*/
+virtual void uploadFile(const std::wstring& fileName, std::string& sig) = 0;
+
+```
+
+上传结果通过`IClassroomWhiteboardListener`的回调传给上层处理
+```objc
+/**
+* \brief 通知文件上传进度
+* \param percent	进度按百分比
+*/
+virtual void onUploadProgress(int percent) = 0;
+
+/**
+* \brief 通知文件上传结果
+* \param success	上传结果
+* \param objName	cos文件名
+* \param fileName	本地文件名
+*/
+virtual void onUploadResult(bool success, std::wstring objName, std::wstring fileName) = 0;
+
+/**
+* \brief 通知PPT文件上传结果
+* \param success	上传结果
+* \param objName	cos文件名
+* \param fileName	本地文件名
+* \param fileId	    文件Id
+*/
+virtual void onFileUploadResult(bool success, std::wstring objName,std::wstring fileName, int pageCount) = 0;
+```
+
+### 3.7 白板相关操作
 
 TICSDK 中将白板SDK封装在一个白板管理类当中，用户可在进入房间后调TICSDK.h里面的initWhiteBoard方法进行初始化，也可以自己初始化白板SDK后通过initWhiteBoard方法传入
 
@@ -280,11 +333,6 @@ virtual void undo() = 0;
 virtual void redo() = 0;
 
 /**
-@brief 复制
-*/
-virtual void copy() = 0;
-
-/**
 @brief 删除
 */
 virtual void remove() = 0;
@@ -324,7 +372,7 @@ virtual void setAllBackgroundColor(uint32_t rgba) = 0;
 virtual void getBoardData() = 0;
 ```
 
-#### 3.7 IM相关操作
+#### 3.8 IM相关操作
 
 IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只封装了一些常用接口：
 
@@ -423,9 +471,9 @@ virtual void onSendWBData(int err, const char * errMsg) = 0;
 
 前4个代理方法，分别对应了前面4个消息发送的方法，对应类型的消息会在对应类型的代理方法中回调给课堂内所有成员（发消息本人除外），其他端收到后可以将消息展示在界面上。接下来`onRecvGroupSystemMsg`监听了课堂内房间解散消息，`onSendMsg`和`onSendWBData`则对应发普通消息和IM消息是否成功的回调。
 
-### 3.8 音视频相关操作
+### 3.9 音视频相关操作
 
-这部分功能封装于腾讯云互动直播SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、麦克风，扬声器， 屏幕分享等，如下：
+这部分功能封装于腾讯云实时音视频SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、麦克风，扬声器， 屏幕分享等，如下：
 
 ```objc
 /**
@@ -518,55 +566,3 @@ virtual void onMemStatusChange(ilive::E_EndpointEventId event_id, const ilive::V
 创建课堂这步通过`onCreateClassroom`方法通知上层是否成功；课堂内断线事件会通过`onLiveVideoDisconnect`方法通知给上层也便做异常处理。课堂内的成员音视频事件都会通过`onMemStatusChange`方法回调到其他端（包括操作者的），event_id表示事件类型（开关摄像头等），ids表示触发事件的用户ID集合，其他端触发回调之后，可以根据事件类型，进行相应的处理，比如，收到开摄像头事件，就添加一个对应用户的渲染视图，收到关摄像头时间，就移除对应用户的渲染视图（详细用法可以参照demo）。
 
 
-### 3.9 COS上传相关操作
-
-TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等参数，用户填好参数后通过TICManager的`setCosHandler`方法传给TICSDK。cos上传预览功能被封装在了TICManger里面，调用uploadFile将文件名路径作为参数填入即可。
-```objc
-> TICManager.h
-
-/**
-@brief 设置COS参数配置
-@param cfg  COS配置
-*/
-virtual void setCosHandler(TICSDKCosConfig cfg) = 0;
-
-/**
-@brief 上传文件到cos
-@param fileName   文件名
-*/
-virtual void uploadFile(const std::wstring& fileName) = 0;
-
-/**
-@brief 上传文件到cos
-@param fileName   文件名
-@param sig			cos签名
-*/
-virtual void uploadFile(const std::wstring& fileName, std::string& sig) = 0;
-
-```
-
-上传结果通过`IClassroomWhiteboardListener`的回调传给上层处理
-```objc
-/**
-* \brief 通知文件上传进度
-* \param percent	进度按百分比
-*/
-virtual void onUploadProgress(int percent) = 0;
-
-/**
-* \brief 通知文件上传结果
-* \param success	上传结果
-* \param objName	cos文件名
-* \param fileName	本地文件名
-*/
-virtual void onUploadResult(bool success, std::wstring objName, std::wstring fileName) = 0;
-
-/**
-* \brief 通知PPT文件上传结果
-* \param success	上传结果
-* \param objName	cos文件名
-* \param fileName	本地文件名
-* \param fileId	    文件Id
-*/
-virtual void onFileUploadResult(bool success, std::wstring objName,std::wstring fileName, int pageCount) = 0;
-```
