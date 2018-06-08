@@ -12,7 +12,104 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
 ## 2. 集成SDK
-待补充
+### 2.1 编译
+在VisualStudio工程里面，`配置属性`->`C/C++`里面添加TICSDK、iLiveSDK、BoardSDK头文件地址
+在VisualStudio工程里面，`配置属性`->`链接器`里面添加`TICSDK.lib`、`iLiveSDK.lib`这两个链接库，并配好库文件地址
+![](https://main.qcloudimg.com/raw/1cd17fb7e0f9e5ed2ffa0b4aa95834dd.png)
+
+### 2.2 开发
+开发需要包含如下头文件。通过`TICSDK::GetSDKInstance()`方法获得TICSDK实例指针并进行初始化
+
+```objc
+#include "TICSDK.h"
+#include "TICClassroomOption.h"
+
+m_sdk = TICSDK::GetSDKInstance();
+m_sdk->initSDK(1400042982, 17802);
+```
+通过getTICManager()获得白板管理类实例指针，就可以对iLiveSDK进行一些基本操作，例如下面注册iliveSDK的几个回调事件
+
+```objc
+m_sdk->getTICManager()->setLocalVideoCallBack(onLocalVideo, this);
+m_sdk->getTICManager()->setDeviceOperationCallback(OnDeviceOperation, this);
+m_sdk->getTICManager()->setForceOfflineCallback(onForceOffline);
+```
+设置课堂配置类参数，注册监听回调
+```objc
+m_opt.setClassroomEventListener(this);
+m_opt.setClassroomIMListener(this);
+m_opt.setClassroomWhiteboardListener(this);
+m_opt.setIsTeacher(m_bTeacher);
+m_opt.setRoomID(roomid);
+```
+配置cos参数
+```objc
+m_cfg.setCosAppId(1255821848);
+m_cfg.setCosBucket("board-1255821848");
+m_cfg.setRegion("ap-shanghai");
+m_sdk->getTICManager()->setCosHandler(m_cfg);
+```
+### 2.3 创建和加入房间
+TICSDK进出房间开发流程可参考
+![教师业务流程](Windows SDK进出房间调用流程.jpg) 
+
+要注意监听如下一些事件回调
+房间网络断开
+```objc
+void onLiveVideoDisconnect(int reason, const char *errorinfo, void* data)
+```
+
+被踢下线
+```objc
+void onForceOffline();
+```
+
+房间解散消息
+```objc
+void onRecvGroupSystemMsg(const char * msg)
+```
+
+### 2.4 加载白板
+进入房间后就可以初始化白板，传入参数为自己id和白板窗口的父窗口句柄（也可以不传）。白板的`getRenderWindow`方法会返回白板本身的窗口句柄，可以将此窗口句柄添加为白板父窗口的子窗口。
+
+```objc
+m_sdk->initWhiteBoard(m_identifier.c_str(), GetSafeHwnd());
+
+m_sdk->getTICWhiteBoardManager()->getRenderWindow()
+```
+
+### 2.5 视频渲染
+注册iliveSDK的两个回调可以得到本地和远程的视频数据
+```objc
+/**
+@brief 设置本地视频预览回调
+@param OnLocalVideo   回调函数接口
+@param data   用户自定义数据
+*/
+virtual void setLocalVideoCallBack(ilive::iLivePreviewCallback OnLocalVideo, void* data = nullptr) = 0;
+
+/**
+@brief 设置远程视频数据接收
+@param OnRemoteVideo   回调函数接口
+@param data   用户自定义数据
+*/
+virtual void setRemoteVideoCallBack(ilive::iLivePreviewCallback OnRemoteVideo, void* data = nullptr) = 0;
+```
+iliveSDK提供了一个iLiveRootView对象实现了对视频数据的渲染，传入播放窗口句柄进行初始化
+```objc
+m_pRootView = ilive::iLiveCreateRootView();
+bool bRet = m_pRootView->init(hwnd);
+```
+渲染前填入视频发送者id和视频类型进行设置
+```objc
+iLiveView view;
+view.mode = VIEW_MODE_HIDDEN;	//按比例缩放，填充黑边;
+								//view.mode = VIEW_MODE_FIT;	//拉伸画面到控件大小;
+view.exclusive = true;
+m_pRootView->setView(identifier, type, view, false);
+```
+设置好后在ilive视频数据回调里面调用`doRender`进行渲染
+
 ## 3. 使用SDK
 ### 3.1 头文件概览
 
@@ -21,7 +118,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 类名 | 主要功能
 --------- | ---------
 TICSDK.h | 整个SDK的入口类，提供了SDK【初始化】以及【获取版本号】的方法
-TICManager.h | 互动课堂管理类，互动课堂SDK对外主要接口类，提供了【添加白板】、【登录/登出SDK】、【创建/加入/销毁课堂】、【音视频操作】、【IM操作】等接口
+TICManager.h | 互动课堂管理类，互动课堂SDK对外主要接口类，提供了【登录/登出SDK】、【创建/加入/销毁课堂】、【音视频操作】、【IM操作】等接口
 TICClassroomOption.h | 加入课堂时的课堂配置类，主要用来配置加入课堂时的角色（学生 or 老师），另外课堂配置对象还带有三个可选的代理对象，一个是复制监听课堂内部事件，一个则负责监听课堂内的IM消息，还有一个负责监听课堂内白板消息
 TICSDKCosConfig.h | COS管理类，内部封装了腾讯云对象云存储COSSDK，负责文件（PPT、wrod、Excel、pdf、图片等）的上传、下载、在线转码预览等（移动端目前只支持上传和下载）
 TICWhiteboardManager.h|白板管理类，对白板BoardSDK.dll进行了封装
