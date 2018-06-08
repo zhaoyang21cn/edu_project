@@ -51,7 +51,8 @@ m_sdk->getTICManager()->setCosHandler(m_cfg);
 ```
 ### 2.3 创建和加入房间
 TICSDK进出房间开发流程可参考
-![教师业务流程](Windows SDK进出房间调用流程.jpg) 
+![房间流程](./SDK进出房间调用流程.jpg) 
+
 
 要注意监听如下一些事件回调
 房间网络断开
@@ -104,7 +105,7 @@ bool bRet = m_pRootView->init(hwnd);
 ```objc
 iLiveView view;
 view.mode = VIEW_MODE_HIDDEN;	//按比例缩放，填充黑边;
-								//view.mode = VIEW_MODE_FIT;	//拉伸画面到控件大小;
+                                //拉伸画面到控件大小;
 view.exclusive = true;
 m_pRootView->setView(identifier, type, view, false);
 ```
