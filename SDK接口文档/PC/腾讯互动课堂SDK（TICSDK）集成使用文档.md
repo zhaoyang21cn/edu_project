@@ -51,7 +51,7 @@ m_sdk->getTICManager()->setCosHandler(m_cfg);
 ```
 ### 2.3 创建和加入房间
 TICSDK进出房间开发流程可参考
-![房间流程](./SDK进出房间调用流程.jpg) 
+![房间流程](./SDK进出房间调用流程.png) 
 
 
 要注意监听如下一些事件回调
