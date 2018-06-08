@@ -275,7 +275,7 @@ TICSDK使用的一般流程如下：
     /**
      * 课堂音视频异常断开/IM群组解散
      */
-    private IClassEventListener classEventListener;d
+    private IClassEventListener classEventListener;
 ```
 
 **TICClassroomOption**加入课堂配置类集成iLiveSDK的**ILiveRoomOption**，在此基础上新增些开关和回调接口，如：加入课堂时的角色（老师或学生，一般创建课堂的人为老师，其他人应该以学生身份加入课堂），以及进入课堂时是否自动开启摄像头和麦克风（一般情况下， 老师端进入课堂默认打开摄像头和麦克风，学生端进入课堂默认关系）。
