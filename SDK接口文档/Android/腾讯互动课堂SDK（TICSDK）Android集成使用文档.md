@@ -75,7 +75,7 @@ WhiteboardView | 白板控件
 TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和白板数据信息的。开发者可以直接使用或者集成，添加自己业务需要的特性。如Demo：
 
 ```xml
-<com.tencent.ticsdk.demo.views.LivingVideoView
+<com.tencent.ilivesdk.view.AVRootView
 	android:id="@+id/av_root_view"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content" />
@@ -87,14 +87,14 @@ TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和
 	android:layout_alignParentTop="true"
 	android:visibility="invisible" />
 ```
->其中LivingVideoView继承于AVRootView
+>开发者也可以定义自己AVRootView，继承AVRootView即可。
 
 **WhiteboardView控件仅支持款宽高比为16：9的比例显示。请开发者注意与设计师同步该信息，以及不要随意修改该比例，以免影响白板功能的正常体验。**
 
 互动直播的AVRootView控件，构建出实例后，需要设置给TICSDK内部，如：
 
 ```java
-LivingVideoView livingVideoView = (LivingVideoView) findViewById(R.id.av_root_view);
+AVRootView livingVideoView = (AVRootView) findViewById(R.id.av_root_view);
 TICManager.getInstance().setAvRootView(livingVideoView);
 ```
 关于AVRootView更多使用，请参考
@@ -154,8 +154,7 @@ TICSDK使用的一般流程如下：
 ```
 该方法需要传入两个参数，identifier和userSig，identifier为用户ID，userSig为腾讯云后台用来鉴权的用户签名，登录的流程如下：
 
-![登陆流程](../../TICSDK_Login_UML_Sequence_Diagram.png) 
-
+![登陆流程](../../资源文件/TICSDK_Login_UML_Sequence_Diagram.png) 
 
 终端先以开发者的账号体系登录自己的服务器，来为每一个开发者已有的账号生成对应的userSig，终端拿到userSig之后再调用该登录方法登录TICSDK。
 
@@ -198,7 +197,6 @@ TICSDK使用的一般流程如下：
      */
     public void createClassroom(final int roomId, final ILiveCallBack callback) {
 ```
->TODO: roomId说明
 
 * 加入课堂
 
