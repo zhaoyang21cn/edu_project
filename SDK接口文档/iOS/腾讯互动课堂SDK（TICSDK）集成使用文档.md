@@ -5,7 +5,63 @@
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK相较于PC端SDK功能会有少部分缺失，主要集中在文档处理相关功能
 
 ## 2. 集成SDK
-待补充
+#### Cocoapods 集成（推荐）
+
+在 Podfile 文件中加入
+
+```
+pod 'TICSDK'    
+```
+
+安装
+
+```
+pod install
+```
+  
+如果无法安装 SDK 最新版本，运行以下命令更新本地的 CocoaPods 仓库列表
+
+```
+pod repo update
+```
+#### 手动集成
+下载 TICSDK ，将其拖进工程中，并添加以下依赖库
+
+|需添加依赖库|
+|---|
+|Accelerate.framework|
+|AssetsLibrary.framework|
+|AVFoundation.framework|
+|CoreGraphics.framework|
+|CoreMedia.framework|
+|CoreTelephony.framework|
+|CoreVideo.framework|
+|ImageIO.framework|
+|JavaScriptCore.framework|
+|OpenAL.framework|
+|OpenGLES.framework|
+|QuartzCore.framework|
+|SystemConfiguration.framework|
+|VideoToolbox.framework|
+|libbz2.tbd|
+|libc++.tbd|
+|libiconv.tbd|
+|libicucore.tbd|
+|libprotobuf.tbd|
+|libresolv.tbd|
+|libsqlite3.tbd|
+|libstdc++.6.tbd|
+|libstdc++.tbd|
+|libz.tbd|
+|libstdc++.6.0.9.tbd|
+
+#### 工程配置
+为了工程能够正常编译，需要修改以下工程配置：
+
+* 在`Build Settings` -> `Other Linker Flags`里添加选项 `-ObjC`
+* 在`Build Settings` 中将 `Allow Non-modular includes in Framework Modules`设置为`YES`
+* 在`Build Settings` 中将 `Enable Bitcode`设置为`NO`
+ 
 ## 3. 使用SDK
 ### 3.1 头文件概览
 
