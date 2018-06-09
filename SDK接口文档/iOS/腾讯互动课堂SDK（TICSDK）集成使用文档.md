@@ -5,6 +5,9 @@
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK相较于PC端SDK功能会有少部分缺失，主要集中在文档处理相关功能
 
 ## 2. 集成SDK
+
+`TICSDK`支持 iOS7+ 系统，集成方式分为 Cocoapods 集成（推荐）和手动集成，集成完之后还需进行相应的工程配置。
+
 #### Cocoapods 集成（推荐）
 
 在 Podfile 文件中加入
@@ -25,7 +28,7 @@ pod install
 pod repo update
 ```
 #### 手动集成
-下载 TICSDK ，将其拖进工程中，并添加以下依赖库
+[下载TICSDK]() ，将其拖进工程中，并添加以下依赖库
 
 |需添加依赖库|
 |---|
@@ -61,6 +64,7 @@ pod repo update
 * 在`Build Settings` -> `Other Linker Flags`里添加选项 `-ObjC`
 * 在`Build Settings` 中将 `Allow Non-modular includes in Framework Modules`设置为`YES`
 * 在`Build Settings` 中将 `Enable Bitcode`设置为`NO`
+* 由于要用到手机的相机和麦克风，所以别忘了在项目的`info.plist`文件中增加`Privacy - Camera Usage Description`和`Privacy - Microphone Usage Description`两项。
  
 ## 3. 使用SDK
 ### 3.1 头文件概览
