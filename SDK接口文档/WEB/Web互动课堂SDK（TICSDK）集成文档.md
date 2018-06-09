@@ -37,15 +37,15 @@ Sketch（白板）实例：白板的接口在TICSDK中没有集成，需要获�
 #### 5.1 加载必须的SDK
 ```
 <!-- WebRTC SDK -->
-<script src="https://sqimg.qq.com/expert_qq/webrtc/2.2/WebRTCAPI.min.js"></script>
+<script src="https://sqimg.qq.com/expert_qq/webrtc/2.4/WebRTCAPI.min.js"></script>
 <!-- WebIM SDK -->
 <script src="https://sqimg.qq.com/expert_qq/webim/1.7.1/webim.min.js"></script>
 <!-- 白板SDK -->
-<script src="./libs/sketchpad_sdk.mini.js"></script>
+<script src="https://sqimg.qq.com/expert_qq/edu/2.0.0/sketchpad_sdk.mini.js"></script>
 <!-- COS SDK -->
 <script src="./libs/cos.mini.js"></script>
 <!-- TIC SDK -->
-<script src="./libs/TICSDK.js"></script>
+<script src="https://sqimg.qq.com/expert_qq/TICSDK/1.0.0/TICSDK.mini.js"></script>
 ```
 
 #### 5.2 初始化TICSDK，并监听TICSDK关键事件
