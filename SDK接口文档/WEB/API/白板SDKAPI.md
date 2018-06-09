@@ -2,6 +2,7 @@
 
 ## Sketch
 **Kind**: global class  
+**Version**: 2.0.0  
 
 * [Sketch](#Sketch)
     * [new Sketch(options)](#new_Sketch_new)
@@ -32,6 +33,7 @@
         * [.switchFile(fid)](#Sketch+switchFile)
         * [.getFile()](#Sketch+getFile) ⇒ <code>Array</code>
         * [.getBoardByFile(fid)](#Sketch+getBoardByFile) ⇒ <code>Array</code>
+        * [.getBoardByFile(true)](#Sketch+getBoardByFile)
     * _static_
         * [.DRAW_TYPE](#Sketch.DRAW_TYPE) : <code>enum</code>
 
@@ -270,6 +272,17 @@ Sketch 白板类
 | --- | --- | --- |
 | fid | <code>String</code> | 文件ID, 为空时，表示默认的分组 |
 
+<a name="Sketch+getBoardByFile"></a>
+
+### sketch.getBoardByFile(true)
+设置是否可以操作白板
+
+**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| true | <code>Boolean</code> | 可以操作  false 不能操作 |
+
 <a name="Sketch.DRAW_TYPE"></a>
 
 ### Sketch.DRAW_TYPE : <code>enum</code>
@@ -286,11 +299,11 @@ Sketch 白板类
 | RASER | <code>String</code> | <code>raser</code> | 激光笔 |
 | POINTSELECT | <code>String</code> | <code>pointselect</code> | 点选 |
 | SELECT | <code>String</code> | <code>select</code> | 框选 |
-| "GRAPH-LINE" | <code>String</code> | <code>graph-line</code> | 直线 |
-| "GRAPH-CIRCLE" | <code>String</code> | <code>graph-circle</code> | 空心圆 |
-| "GRAPH-RECT" | <code>String</code> | <code>graph-rect</code> | 空心矩形 |
-| "GRAPH-OVAL" | <code>String</code> | <code>graph-oval</code> | 空心椭圆 |
-| "GRAPH-CIRCLE-SOLID" | <code>String</code> | <code>graph-circle-solid</code> | 实心圆 |
-| "GRAPH-RECT-SOLID" | <code>String</code> | <code>graph-rect-solid</code> | 实心矩形 |
-| "GRAPH-OVAL-SOLID" | <code>String</code> | <code>graph-oval-solid</code> | 实心椭圆 |
+| GRAPH_LINE | <code>String</code> | <code>graph-line</code> | 直线 |
+| GRAPH_CIRCLE | <code>String</code> | <code>graph-circle</code> | 空心圆 |
+| GRAPH_RECT | <code>String</code> | <code>graph-rect</code> | 空心矩形 |
+| GRAPH_OVAL | <code>String</code> | <code>graph-oval</code> | 空心椭圆 |
+| GRAPH_CIRCLE_SOLID | <code>String</code> | <code>graph-circle-solid</code> | 实心圆 |
+| GRAPH_RECT_SOLID | <code>String</code> | <code>graph-rect-solid</code> | 实心矩形 |
+| GRAPH_OVAL_SOLID | <code>String</code> | <code>graph-oval-solid</code> | 实心椭圆 |
 

@@ -3,7 +3,7 @@
 腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案，它对`WebRTCAPI`、`boardSDK`、`ImSDK`和`COSSDK`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
 ## 2.准备工作
-TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请对点时间了解以上服务的基本概念和基本业务流程。
+TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请花点时间了解以上服务的基本概念和基本业务流程。
 
 [实时音视频](https://cloud.tencent.com/document/product/647) 提供了实时音视频通话的能力
 
@@ -11,17 +11,24 @@ TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）
 
 [COS服务](https://cloud.tencent.com/document/product/436/6225) 提供云端存储以及文档在线预览服务
 
-## 3. TICSDK接口简介
+## 3. TICSDK简介
 
-先总体说明下SDK中暴露的接口的主要功能：
+> TICSDK 是以事件驱动模式的SDK；接入方只需要简单的调用简单几个方法，注册与业务相关事件监听，即可完成简单的接入。[TICSDK事件](./API/TICSDK事件总览.md)
 
-类名 | 主要功能
+类 | 主要功能
 --------- | ---------
-TICSDK | 整个SDK的入口类，提供了SDK【初始化】、【登录/登出SDK】、【创建/加入/销毁课堂】、【音视频操作】、【IM操作】以及【获取IMSDK实例、WebRTCAPI实例、白板实例，COS实例】的接口
+TICSDK | 整个SDK的入口类，提供了SDK【初始化】、【登录/登出SDK】、【创建/加入/销毁课堂】、【音视频操作】、【IM操作】以及【获取IMSDK实例、WebRTCAPI实例、白板实例】的接口
 
+Sketch（白板）实例：白板的接口在TICSDK中没有集成，需要获取单独白板实例，白板提供了画曲线，直线，矩形，圆形，激光笔，橡皮擦，PPT等功能。白板接口请参考[白板API文档](白板SDKAPI.md)
+
+
+> 特别说明：
+- IM实例：TICSDK中提供了单聊，群聊，以及发送自定义消息四个接口，如果不满足业务需求，可获取IM实例后，按腾讯云提供的[IM文档](https://cloud.tencent.com/document/product/269/1594)实现业务需求。
+
+- WebRTCAPI实例：TICSDK中提供了常见的音视频通话接口，如果不满足业务需求，可获取WebRTCAPI实例后，按腾讯云提供的[WebRTCAPI](https://cloud.tencent.com/document/product/647/16924)实现业务需求。
 
 ## 4. 业务流程图
-
+![](./图片资源/TICSDK业务流程.jpg)
 
 ## 5.集成SDK
 
@@ -92,6 +99,7 @@ webrtc推流配置参数：
 closeLocalMedia | boolean | 否，默认 false | 是否关闭自动推流（如果置为 true，则在完成加入/建房操作后，不会发起本端的推流，如需推流，需要由业务主动调推流接口 ）
 audio | boolean | 否，默认 true | 是否启用音频采集
 video | boolean | 否，默认 true | 是否启用视频采集
+role | string | 否，默认 user | 角色名，每个角色名对应一组音视频采集的配置，可在[控制台 - 画面设定](https://console.qcloud.com/rav)中配置
 
 白板配置参数：
 
