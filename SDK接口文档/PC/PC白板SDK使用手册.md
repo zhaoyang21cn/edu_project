@@ -38,6 +38,11 @@ BoardSDK *boardSDk = new BoardSDK("TestUser", hWnd);
 
 其中第一个参数`"TestUser"`指定当前用户ID，第二个参数`hWnd`用于指定父窗口；`hWnd`参数为可选参数，留空表示白板窗口没有父窗口，此时创建出来的白板窗口为独立窗口。
 
+想要获得白板离线数据则还要初始化白板上报，添入参数依次为sdkAppID，房间ID，用户签名
+```C++
+boardSDk->enableDefaultReporter(sdkAppID(), roomID(),  userSig());
+```
+
 白板窗口创建完后，可通过如下代码获取白板窗口句柄，方便对白板窗口进行操作：
 
 ```C++
@@ -51,6 +56,9 @@ ShowWindow(hWnd, SW_SHOW);
 ```
 
 将白板显示出来或者使用其他代码将白板插入父窗口。
+
+
+
 
 ### 2.3 指定绘制工具及属性
 完成白板窗口创建后，可使用如下代码设置要使用的白板工具及其属性：
@@ -137,6 +145,8 @@ public:
     void onBoardEventData(const char *data, uint32_t length) override;
     void onStatusChanged(bool canUndo, bool canRedo) override;
     uint32_t onGetTime() override;
+    void onGetBoardData(bool bResult) override;
+	void onReportBoardData(const int code, const char * msg) override;
 };
 
 MyCallback myCallback;
