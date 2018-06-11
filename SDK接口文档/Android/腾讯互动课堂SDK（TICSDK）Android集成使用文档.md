@@ -31,11 +31,11 @@ allprojects {
 // COS SDK模块
 compile 'com.tencent.qcloud:cosxml:5.4.4'
 // iLiveSDK模块
-compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.5'
+compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.8'
 // 互动教育模块
-compile 'com.tencent.ticsdk:ticsdk:0.0.1.3'
+compile 'com.tencent.ticsdk:ticsdk:0.0.1.12'
 // 白板SDK模块
-compile 'com.tencent.boardsdk:boardsdk:1.2.3.1'
+compile 'com.tencent.boardsdk:boardsdk:1.2.3.10'
 ```    
 
 并在defaultConfig中配置abiFilters信息
@@ -131,12 +131,25 @@ TICSDK使用的一般流程如下：
 > 如果开发者App中用到了多进程，初始化时需要注意避免重复初始化，如下：
 
 ```
-    if (主进程) {    
-	    // 仅在主线程初始化
-	    TICSDK.getInstance().initSDK(this, Constants.APPID, Constants.ACCOUNTTYPE);
-    }
+if (主进程) {    
+	// 仅在主线程初始化
+	TICSDK.getInstance().initSDK(this, Constants.APPID, Constants.ACCOUNTTYPE);
+}
 ```
 
+TICSDK使用了腾讯云的**存储服务COS**，初始化SDK时也需要初始化COS SDK模。主要构造**CosConfig**配置信息，通过**TICManager#setCosConfig**接口完成COS相关配置，如下：
+
+```java
+CosConfig cosConfig = new CosConfig()
+	.setAppId(cosAppId) 	
+	.setSecrectId(secrectId)
+	.setBucket(bucket)
+	.setRegion(region)
+	.setSecrectKey(secrectKey)
+	.setCosPath(cosPath);
+TICManager.getInstance().setCosConfig(cosConfig);
+
+```
 
 ### 4.5 登录/登出
 初始化完成之后，因为涉及到IM消息的收发，所以还必须先登录：
@@ -211,7 +224,23 @@ TICSDK使用的一般流程如下：
     public void joinClassroom(@NonNull final TICClassroomOption option, final ILiveCallBack callback);
 ```
 
-该接口需要传入房间id，该id由开发者生成和维护，可参考TICSDK提供的业务服务器Demo代码生成。
+该接口需要传入TICClassroomOption加入课堂的参数配置。如：
+
+```java
+    TICClassroomOption classroomOption = new TICClassroomOption()
+        .setRoomId(roomId)
+        //.controlRole("teacher") // 此处为demo的配置，开发者需要根据自身的业务需求配置实时音视频的角色。
+        .autoSpeaker(false)		// 此处为demo的配置，开发者需要根据自身的业务需求配置
+        .setRole(TICClassroomOption.Role.TEACHER) // 课堂中的老师身份
+        .setEnableCamera(true)   // 此处为demo的配置，开发者需要根据自身的业务需求配置
+        .setEnableMic(true)      // 此处为demo的配置，开发者需要根据自身的业务需求配置
+        .setClassroomIMListener(this) // 设置课堂IM消息监听
+        .setClassEventListener(this); // 设置课堂事件监听
+
+    TICManager.getInstance().joinClassroom(classroomOption, new ILiveCallBack()
+```
+
+其中，**TICClassroomOption**功能具体如下：
 
 ```java
     > TICClassroomOption.java
