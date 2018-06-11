@@ -19,7 +19,7 @@ pod 'TICSDK'
 安装
 
 ```
-pod install
+pod install // 由于SDK源文件较大，这步可能需要等待几分钟
 ```
   
 如果无法安装 SDK 最新版本，运行以下命令更新本地的 CocoaPods 仓库列表
@@ -110,10 +110,13 @@ st->op0->op1->op2->op3->op4->op5->op6->op7->e
 下面将SDK按照功能划分，遵循一般的使用顺序，介绍一下`TICSDK`中各功能的使用方法和注意点:
 
 ### 3.3 初始化SDK
-要使用`TICSDK`，首先得进行初始化，初始化方法位于`TICSDK`单例类中：
+要使用`TICSDK`，首先得进行初始化，初始化方法位于`TICSDK`单例类中，先导入头文件`<TICSDK/TICSDK.h>`该头文件包含了TICSDK中所有公开的头文件，所以导入这一个文件就行：
 
 ```objc
 > TICSDK.h (该行表示方法所处文件名，下同)
+
+// 导入头文件
+#import <TICSDK/TICSDK.h>
 
 /**
 @brief 初始化SDK
