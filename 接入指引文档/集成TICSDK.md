@@ -19,9 +19,10 @@
 
 介绍下业务侧需要完成的主要工作：
 ##### a）业务侧登录和userSig生成：
-![](https://main.qcloudimg.com/raw/e5e4e33ea06db665a249844f928f0094.png)
 
 TICSDK虽然有登录/登出接口，但是登录时使用的是`identifier`和`userSig`，客户不能直接使用，还需实现业务层的登录逻辑，如图：
+
+![](https://main.qcloudimg.com/raw/e5e4e33ea06db665a249844f928f0094.png)
 
 业务终端先用业务侧的用户名密码登录开发者自己的服务器，然后开发者服务器使用腾讯云提供的工具生成登录TICSDK所需要的`userSig`（这一步相当于在腾讯云后台注册了一个账号，用户名为业务侧的用户名，密码为生成的`userSig`），并将其返回终端，终端拿到后就可以使用用户名(即`identifier`)和`userSig`去调用TICSDK的登录接口，最后腾讯云后台负责校验登录信息的正确性，返回登录结果。
 
