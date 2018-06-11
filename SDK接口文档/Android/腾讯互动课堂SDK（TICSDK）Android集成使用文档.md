@@ -5,7 +5,7 @@
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK暂时不提供文档管理相关功能；
 
 ## 2.准备工作
-TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK指引文档](./Android白板SDK使用手册.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
+TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](../../接入指引文档/接入指引.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [实时音视频](https://cloud.tencent.com/document/product/268/8424)
 
@@ -21,7 +21,10 @@ TICSDK仅支持gradle的集成方式。
 ```
 allprojects {
     repositories {
-        jcenter() // 或者 mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 ```
