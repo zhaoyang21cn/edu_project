@@ -65,7 +65,19 @@ pod repo update
 * 在`Build Settings` 中将 `Allow Non-modular includes in Framework Modules`设置为`YES`
 * 在`Build Settings` 中将 `Enable Bitcode`设置为`NO`
 * 由于要用到手机的相机和麦克风，所以别忘了在项目的`info.plist`文件中增加`Privacy - Camera Usage Description`和`Privacy - Microphone Usage Description`两项。
- 
+
+#### 集成验证
+在`appdelegate.m`中导入头文件`<TICSDK/TICSDK.h>`，该头文件包含了`TICSDK`中所有公开的头文件，调用`getVersion`方法获取版本号：
+
+```objc
+#import <TICSDK/TICSDK.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"%@",[TICSDK getVersion]);
+    return YES;
+}
+```
+ 如果集成没问题，控制台就能打印出`TICSDK`的版本号。
 ## 3. 使用SDK
 ### 3.1 头文件概览
 
