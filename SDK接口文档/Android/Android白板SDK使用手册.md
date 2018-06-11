@@ -139,31 +139,18 @@
 | onReceive | 各端白板操作数据由此接口填入，白板内部会处理并展示出来。 |
 
 
-## 3.实现网络互通的推荐方案
-**白板操作端捕获操作白板的数据：**
+## 3. 白板数据实时收发
 
-| 接口           | 说明                                       |
-| ------------ | ---------------------------------------- |
-| sendToRemote | 将白板数据通过**WhiteboardEventListener**回调**onDrawData**(*String boardId, List<WhiteboardEvent> events*)接口，回调给业务，由业务完成白板数据发送|
+不同端白板间的数据传输是建立在腾讯`IMSDK`建立的即时信道上的，该功能已经封装在TICSDK内部，开发者无需自行实行。
 
+## 4. 白板数据上报备份和拉取填充
 
-**白板观看端展示白板画面：**
-跟**2.2.3多终端交互接口**一致。教育SDK接收到各端数据，解析完成后，通过WhiteboardManager的onReceive接口（见2.2.3.），输送到白板内部，完成绘制。
+课堂中，老师对白板的操作，涂鸦、图片、PPT、撤销、清空等操作需要上报到后台，并进行存储，这样后面中途加入课堂的成员就能拉取之前的白板数据进行展示。
 
-**数据通道：**
+该过程主要分为两步，数据上报和数据拉取：
 
-在线教育解决方案，推荐使用腾讯云通信提供的群组聊天能力，实现多个白板用户画面的同步功能。 
+**白板数据上报：**
+在每次对白板操作后，SDK会将操作的数据上报到白板后台，目前SDK内部已经实现了该功能，白板后台服务也是由我们维护，开发者无需自行实现。
 
-1. 所有用户加入同一个IM群组中。 
-2. 发送的数据小于7K时，使用TIMCustomElem类型消息发送数据。TIMOfflinePushInfo中的ext字段设置为"**TXWhiteBoardExt**"，TIMCustomElem中的ext字段设置为"**TXWhiteBoardExt**"。 
-3. 发送的数据大于7K时，使用TIMFileElem类型消息发送数据。TIMOfflinePushInfo中的ext字段设置为"**TXWhiteBoardExt**"，TIMFileElem中的filename字段设置为"**TXWhiteBoardExt**"。 
-4. 接收端根据TIMOfflinepushInfo中ext字段的字符串信息，对消息中内容进行还原，还原结果填充回白板对象中。
-
-
-## 4.数据同步方案
-
-**上报白板数据到业务服务器：**白板历史数据的恢复已由SDK内部实现，开发者无需额外开发。
-**加入课堂的用户从服务器获取白板数据：**开发者只需调用**WhiteboardManager**中的**getBoardData**接口触发即可。
-
-**将json数据转换为BaseWbReportData：**通过重载构造函数BaseWbReportData(String strType, JSONObject jsonData) throws JSONException实现不同类型的数据转换。
-
+**白板数据拉取（同步）：**
+每次进入课堂时，TICSDK 会拉取该课堂的所有历史白板消息，展示在白板上，该功能也已经在TICSDK内部实现，开发者无需自行实行。
