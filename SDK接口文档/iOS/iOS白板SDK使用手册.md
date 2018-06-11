@@ -5,7 +5,12 @@
 `TXBoardView.framework`是一个实现了基本白板功能的UIView扩展组件，提供了包括画笔、橡皮擦、背景图、标准图形、移动涂鸦和多白板实例等功能。
 除了以上的本地白板功能之外，白板SDK还提供了网络多终端互通的扩展能力。
 
+> 注意：使用TICSDK中的白板，用户无需关心代理设置，协议方法，白板数据传输和同步等逻辑，这些功能已经在TICSDK内部实现，开发者只需要创建白板对象，并调用白板对象的相应接口来操作白板即可。
+
 ## 2. 集成
+
+> 注意：TICSDK中已经包含了`TXBoardView.framework`无需另外集成。
+
 将TXBoardView.framework直接拖到项目目录下，添加以下依赖库：
 
 |需添加的系统库|
@@ -73,18 +78,21 @@ downloadImage:succ:failed | 下载指定url的图片文件，返回数据
 
 ```objc
 
+/** 白板工具类型 */
 typedef NS_ENUM(NSInteger, TXBoardBrushModel)
 {
     TXBoardBrushModelNone = 0,
-    TXBoardBrushModelLine = 1,  //线条（默认）
-    TXBoardBrushModelEraser,    //橡皮擦
-    TXBoardBrushModelTransform, //缩放
-    TXBoardBrushModelTapSel,    //点击选择涂鸦
-    TXBoardBrushModelRectSel,   //框选涂鸦
-    TXBoardBrushModelSegment,   //直线
-    TXBoardBrushModelOval,      //椭圆
-    TXBoardBrushModelRound,     //正圆
-    TXBoardBrushModelRectangle, //矩形
+    TXBoardBrushModelLine = 1,      //线条（默认）
+    TXBoardBrushModelEraser,        //橡皮擦（点选删除某段涂鸦）
+    TXBoardBrushModelTapSel,        //点击选择涂鸦
+    TXBoardBrushModelRectSel,       //框选涂鸦
+    TXBoardBrushModelSegment,       //直线线段
+    TXBoardBrushModelOval,          //椭圆
+    TXBoardBrushModelOvalFill,      //实心椭圆
+    TXBoardBrushModelRound,         //正圆
+    TXBoardBrushModelRoundFill,     //实心正圆
+    TXBoardBrushModelRectangle,     //矩形
+    TXBoardBrushModelRectangleFill, //实心矩形
 };
 
 @interface TXBoardView : UIView
@@ -113,6 +121,52 @@ typedef NS_ENUM(NSInteger, TXBoardBrushModel)
 #pragma mark - 白板配置
 @property (nonatomic, weak) id<TXBoardViewDelegate> boardViewDelegate;
 
++ (NSString *)getVersion;
+
+#pragma mark - 白板操作相关
+
+- (void)setBrushColor:(UIColor *)color;
+- (UIColor *)getBrushColor;
+
+- (void)setBrushWidth:(CGFloat)width;
+- (CGFloat)getBrushWidth;
+
+- (void)setBrushModel:(TXBoardBrushModel)model;
+- (TXBoardBrushModel)getBrushModel;
+
+- (void)setEraserRadius:(CGFloat)radius;
+- (CGFloat)getEraserRadius;
+
+
+- (void)setBackgroundColor:(UIColor *)color;
+
+
+- (void)setGlobalBackgroundColor:(UIColor *)color;
+
+- (void)undo;
+
+- (BOOL)canUndo;
+
+- (void)redo;
+
+- (BOOL)canRedo;
+
+- (void)clear;
+
+- (void)clearDraws;
+
+#pragma mark - 背景图片
+
+- (void)updateBgImageWithPath:(NSString *)imagePath mode:(TXBoardImageMode)mode succ:(TXSuccBlock)succ failed:(TXFailBlock)failed;
+
+- (void)updateBgImageWithURL:(NSString *)imageURL mode:(TXBoardImageMode)mode succ:(TXSuccBlock)succ failed:(TXFailBlock)failed;
+
+- (NSString *)getBGImageURL:(NSString *)BoardId;
+
+- (void)saveToAlbumWithFinish:(void (^)(void))finishBlcok;
+
+#pragma mark - 多白板
+
 - (NSString *)currentBoardId;
 
 - (NSString *)createSubBoard;
@@ -123,50 +177,9 @@ typedef NS_ENUM(NSInteger, TXBoardBrushModel)
 
 - (NSArray<NSString *> *)boardList;
 
-#pragma mark - 更新背景图片
-- (void)updateBgImageWithPath:(NSString *)imagePath mode:(TXBoardImageMode)mode  succ:(TXSuccBlock)succ failed:(TXFailBlock)failed;//本地路径
-
-- (void)updateBgImageWithURL:(NSString *)imageURL mode:(TXBoardImageMode)mode  succ:(TXSuccBlock)succ failed:(TXFailBlock)failed;//远程URL
-
-#pragma mark - 画笔相关
-- (void)setBrushColor:(UIColor *)color;
-- (UIColor *)getBrushColor;
-
-- (void)setBrushWidth:(CGFloat)width;
-- (CGFloat)getBrushWidth;
-
-- (void)setBrushModel:(TXBoardBrushModel)model;
-- (TXBoardBrushModel)getBrushModel;
-
-#pragma mark - 橡皮
-- (void)setEraserRadius:(CGFloat)radius;
-
-- (CGFloat)getEraserRadius;
-
-#pragma mark - 白板
-- (void)setBackgroundColor:(UIColor *)color;
-
-- (void)setGlobalBackgroundColor:(UIColor *)color;
-
-- (void)clear;
-
-- (void)clearDraws;
-
-- (void)saveToAlbumWithFinish:(void (^)())finishBlcok;
-
-- (void)undo;
-
-- (BOOL)canUndo;
-
-- (void)redo;
-
-- (BOOL)canRedo;
-
 #pragma mark - 数据
 
 - (void)recvBoardViewData:(NSArray<NSDictionary *> *)data;
-
-- (NSArray<TXBoardData *> *)getSnapShot;
 
 - (void)getBoardData:(void (^)(void))succ failed:(void (^)(void))failed;
 
@@ -193,6 +206,16 @@ canUndo | 获取是否可以进行撤回操作
 redo | 重做上一步被撤回的操作
 canRedo | 获取是否可以进行重做操作
 
+**背景图片：**
+
+接口 | 说明
+---|---
+updateBgImageWithPath:mode:succ:failed: | 设置背景图片（本地图片路径）
+updateBgImageWithURL:mode:succ:failed: | 设置背景图片（网络图片URL）
+getBGImageURL: | 获取BoardId对应白板当前显示的背景图片
+saveToAlbumWithFinish: | 将白板当前内容截图，保存到本地相册
+
+
 **创建多个白板的接口：**
 
 接口 | 说明
@@ -216,38 +239,7 @@ getBoardData:failed: | 拉取白板数据（加入课堂后，从服务器拉取
 
 ## 4. 白板数据实时收发
 
-**白板操作端捕获操作白板的数据：**
-
-```objc
-
-@protocol TXBoardViewDelegate <NSObject>
-
-- (int)sendMessage:(NSDictionary *)message;
-
-@end
-
-```
-
-**白板观看端展示白板画面：**
-
-```objc
-
-@interface TXBoardView : UIView
-
-- (void)recvBoardViewData:(NSArray<NSDictionary *> *)data;
-
-@end
-
-```
-
-<!--**Demo中实时数据传输方案：**
-在线教育解决方案，使用[腾讯云通信](https://cloud.tencent.com/document/product/269/1569#1.7-.E8.87.AA.E5.AE.9A.E4.B9.89.E6.B6.88.E6.81.AF.E5.8F.91.E9.80.81)提供的群组聊天能力，实现多个用户白板画面的同步功能。
-1. 所有用户加入同一个IM群组中。
-2. 发送的数据小于7K时，使用`TIMCustomElem`类型消息发送数据。`TIMOfflinePushInfo`中的`ext`字段设置为"TXWhiteBoardExt"，`TIMCustomElem`中的`ext`字段设置为"TXWhiteBoardExt"。
-3. 如果发送的数据大于7K时，使用TIMFileElem类型消息发送数据。TIMOfflinePushInfo中的ext字段设置为"TXWhiteBoardExt"，TIMFileElem中的filename字段设置为"TXWhiteBoardExt"
-4. 接收端根据`TIMOfflinepushInfo`中`ext`字段的字符串信息，对消息中内容进行还原，还原结果填充回白板对象中。
-
-详见Demo代码。-->
+不同端白板间的数据传输是建立在腾讯`IMSDK`建立的即时信道上的，该功能已经封装在TICSDK内部，开发者无需自行实行。
 
 ## 5. 白板数据上报备份和拉取填充
 
@@ -256,23 +248,10 @@ getBoardData:failed: | 拉取白板数据（加入课堂后，从服务器拉取
 该过程主要分为两步，数据上报和数据拉取：
 
 **白板数据上报：**
-在每次对白板操作后，SDK会将操作的数据上报到白板后台，目前表白SDK已经内部实现了该功能，白板后台服务也是我们在维护，用户无需自行实现。
+在每次对白板操作后，SDK会将操作的数据上报到白板后台，目前SDK内部已经实现了该功能，白板后台服务也是由我们维护，开发者无需自行实现。
 
 **白板数据拉取（同步）：**
-数据拉取在白板中提供了一个接口，用户只需要在进房成功之后调用该接口拉取白板数据即可， 方法内部已经实现了数据的解析即填充到白板的功能。（包括异常退出重新进入房间时同步数据的场景）
-
-```objc
-
-@interface TXBoardView : UIView
-
-/**
- 拉取白板数据（加入课堂后，从服务器拉取课堂白板数据，填充白板）
- */
-- (void)getBoardData:(void (^)())succ failed:(void (^)())failed;
-
-@end
-
-```
+每次进入课堂时，TICSDK 会拉取该课堂的所有历史白板消息，展示在白板上，该功能也已经在TICSDK内部实现，开发者无需自行实行。
 
 
 
