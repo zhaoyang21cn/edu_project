@@ -401,7 +401,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 ### 3.9 音视频相关操作
 
-这部分功能封装于腾讯云实时音视频SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、麦克风，切换当前相机方向等，如下：
+这部分功能封装于腾讯云实时音视频SDK `ILiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、麦克风、扬声器、切换当前相机方向等，如下：
 
 ```objc
 /**
@@ -423,6 +423,13 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
  @param isEnable YES:打开 NO:关闭
  */
 - (void)enableMic:(BOOL)isEnable succ:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
+
+/**
+ @brief 打开/关闭 扬声器
+ 
+ @param isEnable YES:打开 NO:关闭
+ */
+- (void)enableSpeaker:(BOOL)isEnable succ:(TCIVoidBlock)succ failed:(TCIErrorBlock)failed;
 ```
 
 课堂内成员在进行打开/关闭摄像头、麦克风操作时，会触发音视频事件，如果在加入课堂前设置了课堂事件监听代理 `id<TICClassroomEventListener> eventListener`，一端进行音视频操作时，另一端就可以在课堂内音视频事件回调中得到通知：
