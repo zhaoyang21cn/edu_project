@@ -11,8 +11,8 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
-## 1.3 下载
-体验demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_DEMO_1.0.0.zip)
+## 1.3 下载				   	
+体验demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_Demo_1.0.0.zip)
 
 代码下载：[TICSDK Code](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
 
@@ -20,6 +20,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 ### 2.1 编译
 在VisualStudio工程里面，`配置属性`->`C/C++`里面添加TICSDK、iLiveSDK、BoardSDK头文件地址
 ![](https://main.qcloudimg.com/raw/4cbbb9401a48be2ce163afb48d81245c.png)
+
 在VisualStudio工程里面，`配置属性`->`链接器`里面添加`TICSDK.lib`、`iLiveSDK.lib`这两个链接库，并指定好库文件地址
 ![](https://main.qcloudimg.com/raw/1cd17fb7e0f9e5ed2ffa0b4aa95834dd.png)
 
@@ -41,6 +42,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 	m_sdk->getTICManager()->setDeviceOperationCallback(OnDeviceOperation, this);
 	m_sdk->getTICManager()->setForceOfflineCallback(onForceOffline);
 ```
+
 设置课堂配置类参数，注册监听回调
 ```C++
 	m_opt.setClassroomEventListener(this);
@@ -49,6 +51,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 	m_opt.setIsTeacher(m_bTeacher);
 	m_opt.setRoomID(roomid);
 ```
+
 配置cos参数
 ```C++
 	m_cfg.setCosAppId(1255821848);
@@ -57,11 +60,12 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 	m_sdk->getTICManager()->setCosHandler(m_cfg);
 ```
 ### 3.2 创建和加入房间
-TICSDK进出房间开发流程可参考
-![房间流程](./SDK进出房间调用流程.png) 
+TICSDK进出房间状态流程可参考下图
 
+![房间流程](https://main.qcloudimg.com/raw/62a414b2cf7c28cf63846bfb870eda95.png) 
 
-要注意监听如下一些事件回调
+登录/登出，创建，加入/退出房间的详细接口函数见后面4.4，4.5介绍，加入房间后要注意监听如下一些事件回调
+
 * 房间网络断开
 ```C++
 	void onLiveVideoDisconnect(int reason, const char *errorinfo, void* data)
@@ -138,8 +142,9 @@ TICWhiteboardManager.h|白板管理类，对白板BoardSDK.dll进行了封装
 
 ### 4.2 使用流程
 
-TICSDK使用的一般流程如下：
-![教师业务流程](../../资源文件/Android_主流程.png) 
+TICSDK业务使用的流程如下：
+
+![教师业务流程](https://main.qcloudimg.com/raw/78f1227b825f9ea4699004dcfb484b63.png) 
 
  > 其中【创建课堂】为教师角色特有流程，学生角色不需调用。
 
