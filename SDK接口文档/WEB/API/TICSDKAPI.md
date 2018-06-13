@@ -10,7 +10,7 @@
         * [.init()](#TICSDK+init)
         * [.login(loginConfig)](#TICSDK+login)
         * [.on(name, callback)](#TICSDK+on)
-        * [.getSketchInstance()](#TICSDK+getSketchInstance) ⇒ <code>Sketch</code>
+        * [.getBoardInstance()](#TICSDK+getBoardInstance) ⇒ <code>Board</code>
         * [.getImInstance()](#TICSDK+getImInstance) ⇒ <code>webim</code>
         * [.getWebRTCInstance()](#TICSDK+getWebRTCInstance) ⇒ <code>WebRTC</code>
         * [.createClassroom(课堂信息)](#TICSDK+createClassroom)
@@ -67,13 +67,13 @@ TICKSDK登录 抛出登录成功和登录失败事件
 | name | <code>String</code> | 事件名称 |
 | callback | <code>function</code> | 事件回调 |
 
-<a name="TICSDK+getSketchInstance"></a>
+<a name="TICSDK+getBoardInstance"></a>
 
-### ticsdK.getSketchInstance() ⇒ <code>Sketch</code>
+### ticsdK.getBoardInstance() ⇒ <code>Board</code>
 获取白板实例， 白板实例需要在监听到进房成功事件[TICSDK.CONSTANT.EVENT.TIC.JOIN_CLASS_ROOM_SUCC]()后才返回
 
 **Kind**: instance method of [<code>TICSDK</code>](#TICSDK)  
-**Returns**: <code>Sketch</code> - sketch 返回白板实例，操作白板请查看[白板API](白板SDKAPI)  
+**Returns**: <code>Board</code> - board 返回白板实例，操作白板请查看[白板API](白板SDKAPI)  
 <a name="TICSDK+getImInstance"></a>
 
 ### ticsdK.getImInstance() ⇒ <code>webim</code>

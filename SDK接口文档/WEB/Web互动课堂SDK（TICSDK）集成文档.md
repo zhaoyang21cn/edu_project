@@ -20,9 +20,9 @@ TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）
 <!-- WebIM SDK -->
 <script src="https://sqimg.qq.com/expert_qq/webim/1.7.1/webim.min.js"></script>
 <!-- 白板SDK -->
-<script src="https://sqimg.qq.com/expert_qq/edu/2.0.0/sketchpad_sdk.mini.js"></script>
+<script src="http://sqimg.qq.com/expert_qq/edu/2.0.0/board_sdk.mini.js"></script>
 <!-- COS SDK -->
-<script src="./libs/cos.mini.js"></script>
+<script src="https://sqimg.qq.com/expert_qq/cos/5.0.0/cos.mini.js"></script>
 <!-- TIC SDK -->
 <script src="https://sqimg.qq.com/expert_qq/TICSDK/1.0.0/TICSDK.mini.js"></script>
 ```

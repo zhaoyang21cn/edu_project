@@ -1,229 +1,229 @@
-<a name="Sketch"></a>
+<a name="BoardSDK"></a>
 
-## Sketch
+## BoardSDK
 **Kind**: global class  
 **Version**: 2.0.0  
 
-* [Sketch](#Sketch)
-    * [new Sketch(options)](#new_Sketch_new)
+* [BoardSDK](#BoardSDK)
+    * [new BoardSDK(options)](#new_BoardSDK_new)
     * _instance_
-        * [.getBoardData()](#Sketch+getBoardData) ⇒ <code>Array</code>
-        * [.addBoard()](#Sketch+addBoard)
-        * [.deleteBoard(要删除的白板ID，为空表示删除当前页)](#Sketch+deleteBoard)
-        * [.prevBoard()](#Sketch+prevBoard)
-        * [.nextBoard()](#Sketch+nextBoard)
-        * [.getBoardList()](#Sketch+getBoardList) ⇒ <code>Array</code>
-        * [.getCurrentBoard()](#Sketch+getCurrentBoard) ⇒ <code>String</code>
-        * [.switchBoard(boardId)](#Sketch+switchBoard)
-        * [.setGlobalBackgroundColor(color)](#Sketch+setGlobalBackgroundColor)
-        * [.setBackgroundColor(color)](#Sketch+setBackgroundColor)
-        * [.setColor(color)](#Sketch+setColor)
-        * [.setThin(thin)](#Sketch+setThin)
-        * [.setType(type)](#Sketch+setType)
-        * [.undo()](#Sketch+undo)
-        * [.canUndo()](#Sketch+canUndo) ⇒ <code>Boolean</code>
-        * [.redo()](#Sketch+redo)
-        * [.canRedo()](#Sketch+canRedo) ⇒ <code>Boolean</code>
-        * [.clear()](#Sketch+clear)
-        * [.clearDraws()](#Sketch+clearDraws)
-        * [.setBackgroundPic(url)](#Sketch+setBackgroundPic)
-        * [.clearGlobalBgColor()](#Sketch+clearGlobalBgColor)
-        * [.addFile(urls, title)](#Sketch+addFile) ⇒ <code>String</code>
-        * [.deleteFile(fid)](#Sketch+deleteFile)
-        * [.switchFile(fid)](#Sketch+switchFile)
-        * [.getFile()](#Sketch+getFile) ⇒ <code>Array</code>
-        * [.getBoardByFile(fid)](#Sketch+getBoardByFile) ⇒ <code>Array</code>
-        * [.getBoardByFile(true)](#Sketch+getBoardByFile)
+        * [.getBoardData()](#BoardSDK+getBoardData) ⇒ <code>Array</code>
+        * [.addBoard()](#BoardSDK+addBoard)
+        * [.deleteBoard(要删除的白板ID，为空表示删除当前页)](#BoardSDK+deleteBoard)
+        * [.prevBoard()](#BoardSDK+prevBoard)
+        * [.nextBoard()](#BoardSDK+nextBoard)
+        * [.getBoardList()](#BoardSDK+getBoardList) ⇒ <code>Array</code>
+        * [.getCurrentBoard()](#BoardSDK+getCurrentBoard) ⇒ <code>String</code>
+        * [.switchBoard(boardId)](#BoardSDK+switchBoard)
+        * [.setGlobalBackgroundColor(color)](#BoardSDK+setGlobalBackgroundColor)
+        * [.setBackgroundColor(color)](#BoardSDK+setBackgroundColor)
+        * [.setColor(color)](#BoardSDK+setColor)
+        * [.setThin(thin)](#BoardSDK+setThin)
+        * [.setType(type)](#BoardSDK+setType)
+        * [.undo()](#BoardSDK+undo)
+        * [.canUndo()](#BoardSDK+canUndo) ⇒ <code>Boolean</code>
+        * [.redo()](#BoardSDK+redo)
+        * [.canRedo()](#BoardSDK+canRedo) ⇒ <code>Boolean</code>
+        * [.clear()](#BoardSDK+clear)
+        * [.clearDraws()](#BoardSDK+clearDraws)
+        * [.setBackgroundPic(url)](#BoardSDK+setBackgroundPic)
+        * [.clearGlobalBgColor()](#BoardSDK+clearGlobalBgColor)
+        * [.addFile(urls, title)](#BoardSDK+addFile) ⇒ <code>String</code>
+        * [.deleteFile(fid)](#BoardSDK+deleteFile)
+        * [.switchFile(fid)](#BoardSDK+switchFile)
+        * [.getFile()](#BoardSDK+getFile) ⇒ <code>Array</code>
+        * [.getBoardByFile(fid)](#BoardSDK+getBoardByFile) ⇒ <code>Array</code>
+        * [.getBoardByFile(true)](#BoardSDK+getBoardByFile)
     * _static_
-        * [.DRAW_TYPE](#Sketch.DRAW_TYPE) : <code>enum</code>
+        * [.DRAW_TYPE](#BoardSDK.DRAW_TYPE) : <code>enum</code>
 
-<a name="new_Sketch_new"></a>
+<a name="new_BoardSDK_new"></a>
 
-### new Sketch(options)
-Sketch 白板类
+### new BoardSDK(options)
+BoardSDK 白板类
 
 
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>Object</code> | 构造函数参数 |
 
-<a name="Sketch+getBoardData"></a>
+<a name="BoardSDK+getBoardData"></a>
 
-### sketch.getBoardData() ⇒ <code>Array</code>
+### boardSDK.getBoardData() ⇒ <code>Array</code>
 获取白板数据
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Array</code> - 返回白板数据  
-<a name="Sketch+addBoard"></a>
+<a name="BoardSDK+addBoard"></a>
 
-### sketch.addBoard()
+### boardSDK.addBoard()
 新增白板
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+deleteBoard"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+deleteBoard"></a>
 
-### sketch.deleteBoard(要删除的白板ID，为空表示删除当前页)
+### boardSDK.deleteBoard(要删除的白板ID，为空表示删除当前页)
 删除白板
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type |
 | --- | --- |
 | 要删除的白板ID，为空表示删除当前页 | <code>String</code> | 
 
-<a name="Sketch+prevBoard"></a>
+<a name="BoardSDK+prevBoard"></a>
 
-### sketch.prevBoard()
+### boardSDK.prevBoard()
 向前翻页
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+nextBoard"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+nextBoard"></a>
 
-### sketch.nextBoard()
+### boardSDK.nextBoard()
 向后翻页
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+getBoardList"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+getBoardList"></a>
 
-### sketch.getBoardList() ⇒ <code>Array</code>
+### boardSDK.getBoardList() ⇒ <code>Array</code>
 向后翻页
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Array</code> - 返回白板ID列表  
-<a name="Sketch+getCurrentBoard"></a>
+<a name="BoardSDK+getCurrentBoard"></a>
 
-### sketch.getCurrentBoard() ⇒ <code>String</code>
+### boardSDK.getCurrentBoard() ⇒ <code>String</code>
 获取当前白板ID
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>String</code> - 返回当前白板ID  
-<a name="Sketch+switchBoard"></a>
+<a name="BoardSDK+switchBoard"></a>
 
-### sketch.switchBoard(boardId)
+### boardSDK.switchBoard(boardId)
 白板翻页
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | boardId | <code>String</code> | 要展示的白板ID |
 
-<a name="Sketch+setGlobalBackgroundColor"></a>
+<a name="BoardSDK+setGlobalBackgroundColor"></a>
 
-### sketch.setGlobalBackgroundColor(color)
+### boardSDK.setGlobalBackgroundColor(color)
 设置全局颜色
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | color | <code>String</code> | hex色值，如 #ff00ff |
 
-<a name="Sketch+setBackgroundColor"></a>
+<a name="BoardSDK+setBackgroundColor"></a>
 
-### sketch.setBackgroundColor(color)
+### boardSDK.setBackgroundColor(color)
 设置当前页颜色
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | color | <code>String</code> | hex色值，如 #ff00ff |
 
-<a name="Sketch+setColor"></a>
+<a name="BoardSDK+setColor"></a>
 
-### sketch.setColor(color)
+### boardSDK.setColor(color)
 设置画笔颜色
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | color | <code>string</code> | hex色值 #ff00ff |
 
-<a name="Sketch+setThin"></a>
+<a name="BoardSDK+setThin"></a>
 
-### sketch.setThin(thin)
+### boardSDK.setThin(thin)
 设置线条的粗细
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | thin | <code>Number</code> | 默认100 |
 
-<a name="Sketch+setType"></a>
+<a name="BoardSDK+setType"></a>
 
-### sketch.setType(type)
+### boardSDK.setType(type)
 修改涂鸦类型
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| type | [<code>DRAW_TYPE</code>](#Sketch.DRAW_TYPE) | 如 Sketch.DRAW_TYPE.LINE |
+| type | [<code>DRAW_TYPE</code>](#BoardSDK.DRAW_TYPE) | 如 BoardSDK.DRAW_TYPE.LINE |
 
-<a name="Sketch+undo"></a>
+<a name="BoardSDK+undo"></a>
 
-### sketch.undo()
+### boardSDK.undo()
 当前白板页撤销
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+canUndo"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+canUndo"></a>
 
-### sketch.canUndo() ⇒ <code>Boolean</code>
+### boardSDK.canUndo() ⇒ <code>Boolean</code>
 判断当前白板页是否还能撤销
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Boolean</code> - true 还能撤销 false 不能再撤销了  
-<a name="Sketch+redo"></a>
+<a name="BoardSDK+redo"></a>
 
-### sketch.redo()
+### boardSDK.redo()
 当前白板页恢复
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+canRedo"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+canRedo"></a>
 
-### sketch.canRedo() ⇒ <code>Boolean</code>
+### boardSDK.canRedo() ⇒ <code>Boolean</code>
 判断当前白板页是否还能恢复
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Boolean</code> - true 还能恢复 false 不能再恢复了  
-<a name="Sketch+clear"></a>
+<a name="BoardSDK+clear"></a>
 
-### sketch.clear()
+### boardSDK.clear()
 清空当前页涂鸦 + 背景色/图片
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+clearDraws"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+clearDraws"></a>
 
-### sketch.clearDraws()
+### boardSDK.clearDraws()
 清空当前页涂鸦(保留背景色/图片)
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+setBackgroundPic"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+setBackgroundPic"></a>
 
-### sketch.setBackgroundPic(url)
+### boardSDK.setBackgroundPic(url)
 设置当前页的背景图
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | url | <code>String</code> | 图片的URL地址 |
 
-<a name="Sketch+clearGlobalBgColor"></a>
+<a name="BoardSDK+clearGlobalBgColor"></a>
 
-### sketch.clearGlobalBgColor()
+### boardSDK.clearGlobalBgColor()
 清除全局背景色
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
-<a name="Sketch+addFile"></a>
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
+<a name="BoardSDK+addFile"></a>
 
-### sketch.addFile(urls, title) ⇒ <code>String</code>
+### boardSDK.addFile(urls, title) ⇒ <code>String</code>
 上传文件
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>String</code> - 返回文件唯一ID  
 
 | Param | Type | Description |
@@ -231,64 +231,64 @@ Sketch 白板类
 | urls | <code>Array</code> | 文件转码后的图片urls |
 | title | <code>String</code> | 文件名 |
 
-<a name="Sketch+deleteFile"></a>
+<a name="BoardSDK+deleteFile"></a>
 
-### sketch.deleteFile(fid)
+### boardSDK.deleteFile(fid)
 删除文件
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | fid | <code>String</code> | 文件唯一ID |
 
-<a name="Sketch+switchFile"></a>
+<a name="BoardSDK+switchFile"></a>
 
-### sketch.switchFile(fid)
+### boardSDK.switchFile(fid)
 切换文件
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | fid | <code>String</code> | 文件唯一ID |
 
-<a name="Sketch+getFile"></a>
+<a name="BoardSDK+getFile"></a>
 
-### sketch.getFile() ⇒ <code>Array</code>
+### boardSDK.getFile() ⇒ <code>Array</code>
 获取白板中所有的文件
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Array</code> - 返回白板中所有的文件  
-<a name="Sketch+getBoardByFile"></a>
+<a name="BoardSDK+getBoardByFile"></a>
 
-### sketch.getBoardByFile(fid) ⇒ <code>Array</code>
+### boardSDK.getBoardByFile(fid) ⇒ <code>Array</code>
 根据文件获取该文件的所有白板
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 **Returns**: <code>Array</code> - 返回对应文件下的所有白板  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | fid | <code>String</code> | 文件ID, 为空时，表示默认的分组 |
 
-<a name="Sketch+getBoardByFile"></a>
+<a name="BoardSDK+getBoardByFile"></a>
 
-### sketch.getBoardByFile(true)
+### boardSDK.getBoardByFile(true)
 设置是否可以操作白板
 
-**Kind**: instance method of [<code>Sketch</code>](#Sketch)  
+**Kind**: instance method of [<code>BoardSDK</code>](#BoardSDK)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | true | <code>Boolean</code> | 可以操作  false 不能操作 |
 
-<a name="Sketch.DRAW_TYPE"></a>
+<a name="BoardSDK.DRAW_TYPE"></a>
 
-### Sketch.DRAW_TYPE : <code>enum</code>
+### BoardSDK.DRAW_TYPE : <code>enum</code>
 白板支持的涂鸦类型
 
-**Kind**: static enum of [<code>Sketch</code>](#Sketch)  
+**Kind**: static enum of [<code>BoardSDK</code>](#BoardSDK)  
 **Read only**: true  
 **Properties**
 
