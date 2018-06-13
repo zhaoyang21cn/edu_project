@@ -146,7 +146,7 @@ public:
     void onStatusChanged(bool canUndo, bool canRedo) override;
     uint32_t onGetTime() override;
     void onGetBoardData(bool bResult) override;
-	void onReportBoardData(const int code, const char * msg) override;
+    void onReportBoardData(const int code, const char * msg) override;
 };
 
 MyCallback myCallback;
