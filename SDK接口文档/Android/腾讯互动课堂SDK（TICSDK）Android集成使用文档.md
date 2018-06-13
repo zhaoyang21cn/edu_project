@@ -1,11 +1,11 @@
 # 腾讯互动课堂SDK（TICSDK）集成使用文档
 ## 1. 简介
-腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案接入工具，它对`iLiveSDK`、`boardsdk`和`cosxml`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
+腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案接入工具，它对`iLiveSDK`、`boardsdk`和`COS`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK暂时不提供文档管理相关功能；
 
 ## 2.准备工作
-TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](../../接入指引文档/概述.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
+TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E6%A6%82%E8%BF%B0.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [实时音视频](https://cloud.tencent.com/document/product/268/8424)
 
@@ -34,11 +34,11 @@ allprojects {
 // COS SDK模块
 compile 'com.tencent.qcloud:cosxml:5.4.4'
 // iLiveSDK模块
-compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.8'
+compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.1.5'
 // 互动教育模块
-compile 'com.tencent.ticsdk:ticsdk:0.0.1.12'
+compile 'com.tencent.ticsdk:ticsdk:1.0.0'
 // 白板SDK模块
-compile 'com.tencent.boardsdk:boardsdk:1.2.3.10'
+compile 'com.tencent.boardsdk:boardsdk:1.2.4'
 ```    
 
 并在defaultConfig中配置abiFilters信息
@@ -62,7 +62,7 @@ defaultConfig {
 ```
 
 ## 4. TICSDK使用说明
-工程配置完成之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo]().
+工程配置完成之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/Android/TICSDK_Android_Demo.zip).
 
 > 开发者Demo的主要主要为向开发者展示TICSDK的基本使用方法，所以简化了很多不必要的UI代码，使开发者更加专注于了解TICSDK的使用方法。
 
@@ -111,7 +111,7 @@ TICManager.getInstance().setAvRootView(livingVideoView);
 
 TICSDK使用的一般流程如下：
 
-![教师业务流程](../../资源文件/Android_主流程.png) 
+![业务流程](https://main.qcloudimg.com/raw/180672aff170289c95e02556eeed9ca8.png) 
 
 
  > 其中【创建课堂】为教师角色特有流程，学生角色不需调用。
@@ -174,7 +174,7 @@ TICManager.getInstance().setCosConfig(cosConfig);
 ```
 该方法需要传入两个参数，identifier和userSig，identifier为用户ID，userSig为腾讯云后台用来鉴权的用户签名，登录的流程如下：
 
-![登陆流程](../../资源文件/TICSDK_Login_UML_Sequence_Diagram.png) 
+![登陆流程](https://main.qcloudimg.com/raw/a5be82ca74f2d33598549d0222d3ceba.png) 
 
 该方法需要传入两个参数，uid和userSig，uid为用户ID，userSig为腾讯云后台用来鉴权的用户签名，相当于登录TICSDK的用户密码，需要开发者服务器遵守腾讯云生成userSig的规则来生成，并传给客户端用于登录，详情请参考：[生成签名](https://cloud.tencent.com/document/product/647/17275)
 
@@ -338,7 +338,7 @@ WhiteboardManager.getInstance().getConfig()
 
 ### 4.7 白板相关操作
 
-白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](./Android白板SDK使用手册.md) 。
+白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/Android/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md) 。
 
 ### 4.8 IM相关操作
 
