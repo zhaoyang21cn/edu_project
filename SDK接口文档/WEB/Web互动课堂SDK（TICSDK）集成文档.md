@@ -337,7 +337,7 @@ this.ticSdk.uploadFile(file, succ, fail)
  > 获取白板实例， 白板实例需要在监听到进房成功事件[TICSDK.CONSTANT.EVENT.TIC.JOIN_CLASS_ROOM_SUCC]()后才返回
 
  ```
- this.ticsdK.getSketchInstance()
+ this.ticsdK.getBoardInstance()
  ```
 
 - #### 4.13.2 获取IM实例
