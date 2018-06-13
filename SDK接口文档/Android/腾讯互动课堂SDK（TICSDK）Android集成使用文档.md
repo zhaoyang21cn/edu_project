@@ -38,7 +38,7 @@ compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.1.5'
 // 互动教育模块
 compile 'com.tencent.ticsdk:ticsdk:1.0.0'
 // 白板SDK模块
-compile 'com.tencent.boardsdk:boardsdk:1.2.4'
+compile 'com.tencent.boardsdk:boardsdk:1.2.5'
 ```    
 
 并在defaultConfig中配置abiFilters信息
