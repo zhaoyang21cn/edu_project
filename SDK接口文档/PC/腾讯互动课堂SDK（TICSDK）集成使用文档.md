@@ -12,7 +12,9 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
 ## 1.3 下载
+体验demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_DEMO_1.0.0.zip)
 
+代码下载：[TICSDK Code](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
 
 ## 2. 集成SDK
 ### 2.1 编译
