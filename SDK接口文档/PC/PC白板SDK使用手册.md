@@ -1,5 +1,5 @@
-#PC白板SDK使用手册
-##1. SDK文件结构
+# PC白板SDK使用手册
+## 1. SDK文件结构
 白板SDK内包含文件说明如下表:
 
 |文件名称|说明|
@@ -8,7 +8,7 @@
 |BoardSDK.lib|SDK导入库|
 |BoardSDK.h|SDK头文件|
 
-##2. SDK快速集成
+## 2. SDK快速集成
 ### 2.1 导入SDK到项目
 在Visual Studio开发环境下，按如下步骤导入SDK：
 
@@ -146,7 +146,7 @@ public:
     void onStatusChanged(bool canUndo, bool canRedo) override;
     uint32_t onGetTime() override;
     void onGetBoardData(bool bResult) override;
-	void onReportBoardData(const int code, const char * msg) override;
+    void onReportBoardData(const int code, const char * msg) override;
 };
 
 MyCallback myCallback;
@@ -165,16 +165,7 @@ boardSDk->redo();//重做
 
 如果当前已经没有操作可撤销或者重做，则调用无效，不会产生其他负面效果。对于当前是否存在操作可撤销或重做，SDK将会在用户进行操作后通过回调`onStatusChanged`返回通知，其中`canUndo`参数指示当前是否存在可撤销操作，`canRedo`参数指示当前是否存在可重做操作。
 
-### 2.8 多白板数据共享
-当用户在白板上进行操作时，白板会将操作元数据序列化为JSON字符串，并通过`onActionsData`回调通知出来，此时您可以将这些JSON字符串通过数据通道发送出去，其他端收到后，可以通过如下代码将这些JSON字符串传给白板SDK，白板SDK将会反序列化出操作元数据，并将之重现，以此实现多白板数据共享：
-
-```C++
-boardSDk->appendActionsData(data, length);
-```
-
-以上代码中，`data`参数为接收到的JSON字符串，`length`参数为JSON字符串长度。
-
-### 2.9 多白板状态同步
+### 2.8 多白板状态同步
 
 课堂中，老师对白板的操作，涂鸦、图片、PPT、撤销、清空等操作需要上报到后台，并进行存储，这样后面中途加入课堂的成员就能拉取之前的白板数据进行展示。
 
