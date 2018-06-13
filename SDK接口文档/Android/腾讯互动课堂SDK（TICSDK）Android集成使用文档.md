@@ -48,7 +48,7 @@ defaultConfig {
 	...
 	ndk {
 		// 设置支持的so库架构
-		abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+		abiFilters 'armeabi', 'armeabi-v7a'
 	}
 }
  ```	
@@ -61,10 +61,14 @@ defaultConfig {
 -keep class com.tencent.** {*;}
 ```
 
-## 4. 使用SDK
-### 4.1 头文件概览
+## 4. TICSDK使用说明
+工程配置完成之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo]().
 
-先总体说明下SDK中暴露的公开头文件的主要功能：
+> 开发者Demo的主要主要为向开发者展示TICSDK的基本使用方法，所以简化了很多不必要的UI代码，使开发者更加专注于了解TICSDK的使用方法。
+
+### 4.1 主要类概览
+
+先总体说明下SDK中主要类的功能：
 
 类名 | 主要功能
 --------- | ---------
@@ -139,8 +143,8 @@ if (主进程) {
 	TICSDK.getInstance().initSDK(this, Constants.APPID, Constants.ACCOUNTTYPE);
 }
 ```
-
-TICSDK使用了腾讯云的**存储服务COS**，初始化SDK时也需要初始化COS SDK模。主要构造**CosConfig**配置信息，通过**TICManager#setCosConfig**接口完成COS相关配置，如下：
+COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/6225)，如果您的APP中需要用到上传图片、文件到白板上展示的功能 (移动端只能上传图片)，则需要先在腾讯云对象存储开通了服务，然后再在SDK中将相关参数配置好，TICSDK内部会将调用SDK接口上传的图片，文件上传到您配置的COS云存储桶中。
+TICSDK初始化SDK时也需要初始化COS SDK模。主要构造**CosConfig**配置信息，通过**TICManager#setCosConfig**接口完成COS相关配置，如下：
 
 ```java
 CosConfig cosConfig = new CosConfig()
@@ -227,7 +231,7 @@ TICManager.getInstance().setCosConfig(cosConfig);
 ```java
     TICClassroomOption classroomOption = new TICClassroomOption()
         .setRoomId(roomId)
-        //.controlRole("teacher") // 此处为demo的配置，开发者需要根据自身的业务需求配置实时音视频的角色。
+        .controlRole("user") 		// 默认的实时音视频角色的配置“user”，开发者需要根据自身的业务需求配置实时音视频的角色。
         .autoSpeaker(false)		// 此处为demo的配置，开发者需要根据自身的业务需求配置
         .setRole(TICClassroomOption.Role.TEACHER) // 课堂中的老师身份
         .setEnableCamera(true)   // 此处为demo的配置，开发者需要根据自身的业务需求配置
@@ -306,8 +310,17 @@ TICManager.getInstance().setCosConfig(cosConfig);
 ```
 
 **TICClassroomOption**加入课堂配置类集成iLiveSDK的**ILiveRoomOption**，在此基础上新增些开关和回调接口，如：加入课堂时的角色（老师或学生，一般创建课堂的人为老师，其他人应该以学生身份加入课堂），以及进入课堂时是否自动开启摄像头和麦克风（一般情况下， 老师端进入课堂默认打开摄像头和麦克风，学生端进入课堂默认关系）。
-
 开发者亦可通过该参数直接控制iLiveSDK的进房参数设置。
+加入课堂成功，在成功的回调处，需要初始化一下白板SDK的相关配置，如：
+
+```java
+// 配置白板参数
+WhiteboardManager.getInstance().getConfig()
+	.setTimePeriod(300)
+	.setPaintSize(6)
+	.setPaintColor(Color.BLUE)
+	.setIdentifier(ILiveLoginManager.getInstance().getMyUserId());
+```
 
 * 退出课堂
 
