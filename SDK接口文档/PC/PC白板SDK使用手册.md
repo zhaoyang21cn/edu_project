@@ -150,23 +150,23 @@ boardSDk->remove();//删除选中图形
 用户需在外层维护这样一个数据结构：
 
 ```json
+{
 
-
-    fid1 : [
+    fid1 : {
         boardID1,
         boardID2,
         boardID3,
         ...
-    ],
+    },
     
-    fid2 : [
+    fid2 : {
         boardID1,
         boardID2,
         boardID3,
         ...
-    ],
+    },
     ....
-
+}
 
 ```
 
