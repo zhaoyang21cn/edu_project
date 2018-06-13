@@ -80,7 +80,7 @@ pod repo update
  如果集成没问题，控制台就能打印出`TICSDK`的版本号。
  
 ## 3. 使用详解
-集成成功之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo]().
+集成成功之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/iOS/TICSDK_Demo.zip).
 
 > 开发者Demo的主要主要为向开发者展示TICSDK的基本使用方法，所以简化了很多不必要的UI代码，使开发者更加专注于了解TICSDK的使用方法。
 
