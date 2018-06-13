@@ -22,7 +22,7 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 ![](https://main.qcloudimg.com/raw/1cd17fb7e0f9e5ed2ffa0b4aa95834dd.png)
 
 ### 2.2 开发
-开发需要包含如下头文件。通过`TICSDK::GetSDKInstance()`方法获得TICSDK实例指针并进行初始化
+开发需要包含如下头文件。通过`TICSDK::GetSDKInstance()`方法获得TICSDK实例指针并进行初始化。在此之前，之前必须保证已经在[腾讯云后台](https://console.cloud.tencent.com/rav)注册成功并创建了应用，这样才能拿到腾讯云后台分配的SDKAppID和accountType。
 
 ```C++
 	#include "TICSDK.h"
