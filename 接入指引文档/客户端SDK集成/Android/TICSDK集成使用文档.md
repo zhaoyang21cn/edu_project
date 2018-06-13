@@ -1,4 +1,3 @@
-# 腾讯互动课堂SDK（TICSDK）集成使用文档
 ## 1. 简介
 腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案接入工具，它对`iLiveSDK`、`boardsdk`和`COS`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
@@ -488,4 +487,6 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 AvRootView和WhiteboardView都是集成SurfaceView的，SurfaceView叠加显示时会有异常。
 通过SurfaceView的setZOrderMediaOverlay(true);即可解决。
+
+
 

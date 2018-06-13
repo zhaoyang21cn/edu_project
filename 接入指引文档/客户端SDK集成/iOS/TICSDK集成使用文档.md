@@ -1,4 +1,3 @@
-# 腾讯互动课堂SDK（TICSDK）集成使用文档
 ## 1. 简介
 腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案的 iOS 静态库，它对`ILiveSDK`、`IMSDK`和`TXBoardView.framework`、`COSSDK`  四个SDK进行了集成封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
