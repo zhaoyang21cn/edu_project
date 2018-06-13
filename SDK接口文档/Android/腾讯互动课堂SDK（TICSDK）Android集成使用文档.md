@@ -111,7 +111,7 @@ TICManager.getInstance().setAvRootView(livingVideoView);
 
 TICSDK使用的一般流程如下：
 
-![教师业务流程](../../资源文件/Android_主流程.png) 
+![业务流程](https://main.qcloudimg.com/raw/180672aff170289c95e02556eeed9ca8.png) 
 
 
  > 其中【创建课堂】为教师角色特有流程，学生角色不需调用。
@@ -174,7 +174,7 @@ TICManager.getInstance().setCosConfig(cosConfig);
 ```
 该方法需要传入两个参数，identifier和userSig，identifier为用户ID，userSig为腾讯云后台用来鉴权的用户签名，登录的流程如下：
 
-![登陆流程](../../资源文件/TICSDK_Login_UML_Sequence_Diagram.png) 
+![登陆流程](https://main.qcloudimg.com/raw/a5be82ca74f2d33598549d0222d3ceba.png) 
 
 该方法需要传入两个参数，uid和userSig，uid为用户ID，userSig为腾讯云后台用来鉴权的用户签名，相当于登录TICSDK的用户密码，需要开发者服务器遵守腾讯云生成userSig的规则来生成，并传给客户端用于登录，详情请参考：[生成签名](https://cloud.tencent.com/document/product/647/17275)
 
