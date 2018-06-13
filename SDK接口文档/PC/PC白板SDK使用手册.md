@@ -1,5 +1,5 @@
 # PC白板SDK使用手册
-##1. SDK文件结构
+## 1. SDK文件结构
 白板SDK内包含文件说明如下表:
 
 |文件名称|说明|
@@ -8,7 +8,7 @@
 |BoardSDK.lib|SDK导入库|
 |BoardSDK.h|SDK头文件|
 
-##2. SDK快速集成
+## 2. SDK快速集成
 ### 2.1 导入SDK到项目
 在Visual Studio开发环境下，按如下步骤导入SDK：
 
