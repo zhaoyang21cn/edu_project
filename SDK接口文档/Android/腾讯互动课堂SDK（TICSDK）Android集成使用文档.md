@@ -34,11 +34,11 @@ allprojects {
 // COS SDK模块
 compile 'com.tencent.qcloud:cosxml:5.4.4'
 // iLiveSDK模块
-compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.0.8'
+compile 'com.tencent.ilivesdk:ilivesdk:1.8.6.1.5'
 // 互动教育模块
-compile 'com.tencent.ticsdk:ticsdk:0.0.1.12'
+compile 'com.tencent.ticsdk:ticsdk:1.0.0'
 // 白板SDK模块
-compile 'com.tencent.boardsdk:boardsdk:1.2.3.10'
+compile 'com.tencent.boardsdk:boardsdk:1.2.4'
 ```    
 
 并在defaultConfig中配置abiFilters信息
