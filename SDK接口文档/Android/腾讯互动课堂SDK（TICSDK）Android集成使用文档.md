@@ -5,7 +5,7 @@
 > 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK暂时不提供文档管理相关功能；
 
 ## 2.准备工作
-TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](../../接入指引文档/概述.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
+TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E6%A6%82%E8%BF%B0.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [实时音视频](https://cloud.tencent.com/document/product/268/8424)
 
@@ -338,7 +338,7 @@ WhiteboardManager.getInstance().getConfig()
 
 ### 4.7 白板相关操作
 
-白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](./Android白板SDK使用手册.md) 。
+白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/Android/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md) 。
 
 ### 4.8 IM相关操作
 
