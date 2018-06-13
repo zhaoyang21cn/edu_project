@@ -151,7 +151,7 @@ boardSDk->remove();//删除选中图形
 
 ```json
 
-[
+
     fid1 : [
         boardID1,
         boardID2,
@@ -166,7 +166,7 @@ boardSDk->remove();//删除选中图形
         ...
     ],
     ....
-]
+
 
 ```
 
