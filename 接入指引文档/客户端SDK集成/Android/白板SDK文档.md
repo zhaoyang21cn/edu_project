@@ -31,15 +31,7 @@
 	 android:layout_height="match_parent" />
 
 ```
-或
-
-````
-<com.tencent.confsdk.view.ConfBoardView
-	 android:id="@+id/cbv_board"
-	 android:layout_width="match_parent"
-	 android:layout_height="match_parent" />
-````
-其中ConfBoardView继承**WhiteboardView**
+> 为了保证各端体验一致，白板视图的宽高比固定为16：9。WhiteboardView控件内部已做处理，开发者直接使用即可。
 
 **主要方法说明**
 
