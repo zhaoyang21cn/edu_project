@@ -19,6 +19,8 @@ TXBoardView *boardView = [[TXBoardView alloc] initWithFrame:frame];
 [self.view addSubview:boardView];
 ```
 
+> 白板长宽比最好固定为 16 : 9
+
 ### 2.2 设置白板的delegate
 
 > 注意：如果使用 TICSDK，则不需要设置该代理对象，TICSDK内部已经实现了所有代理方法
