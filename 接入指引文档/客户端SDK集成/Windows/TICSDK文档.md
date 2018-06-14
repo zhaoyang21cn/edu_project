@@ -53,6 +53,7 @@ SDK下载：[TICSDK](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.
 ```
 
 设置课堂配置类参数，注册监听回调
+
 ```C++
 	m_opt.setClassroomEventListener(this);
 	m_opt.setClassroomIMListener(this);
@@ -61,7 +62,9 @@ SDK下载：[TICSDK](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.
 	m_opt.setRoomID(roomid);
 ```
 
-配置cos参数
+配置COS参数，用于上传图片、PPT文件到白板上展示。下面这些COS属性参数都可从腾讯云COS控制台获取到。
+请登录 [对象存储控制台](https://console.cloud.tencent.com/cos5) 开通COS服务。
+
 ```C++
 	m_cfg.setCosAppId(1255821848);
 	m_cfg.setCosBucket("board-1255821848");
@@ -318,8 +321,10 @@ virtual void quitClassroom(ilive::iLiveSucCallback success, ilive::iLiveErrCallb
 学生退出课堂时，只是本人退出了课堂，老师调用`退出课堂`方法退出课堂时，该课堂将会被销毁，另外退出课堂成功后，课堂的资源将会被回收，所以开发者应尽量保证再加入另一个课堂前，已经退出了前一个课堂。
 
 ### 4.6 COS上传相关操作
+COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/6225)，如果您需要用到上传图片、PPT文件到白板上展示的功能，则需要先在腾讯云对象存储开通了服务，然后再在SDK中将COS相关参数配置好，TICSDK内部会将调用SDK接口上传的图片，文件上传到您配置的COS云存储桶中。
+TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等参数，用户填好这些参数后通过TICManager的`setCosHandler`方法传给TICSDK。cos上传和预览功能被封装在了TICManger里面，如需上传图片、PPT文件，调用`uploadFile`这个接口将文件名路径和生成的COS签名作为参数填入即可。
+COS签名生成请参考[COS签名](https://github.com/zhaoyang21cn/edu_project/blob/master/接入指引文档/接入指南/业务后台接入腾讯云服务.md)
 
-TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等参数，用户填好参数后通过TICManager的`setCosHandler`方法传给TICSDK。cos上传预览功能被封装在了TICManger里面，调用uploadFile将文件名路径作为参数填入即可。
 ```C++
 > TICManager.h
 
@@ -330,13 +335,7 @@ TICSDKCosConfig内部封装了COS上传所需要的CosAppId，Bucket，Region等
 virtual void setCosHandler(TICSDKCosConfig cfg) = 0;
 
 /**
-* \brief 上传文件到cos
-* \param fileName   文件名
-*/
-virtual void uploadFile(const std::wstring& fileName) = 0;
-
-/**
-* \brief 上传文件到cos
+* \brief 带签名上传文件到cos
 * \param fileName   文件名
 * \param sig			cos签名
 */
