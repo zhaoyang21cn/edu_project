@@ -35,6 +35,8 @@
 BoardSDK *boardSDk = new BoardSDK("TestUser", hWnd);
 ```
 
+> 注意：白板长宽比固定为 16 : 9
+
 其中第一个参数`"TestUser"`指定当前用户ID，第二个参数`hWnd`用于指定父窗口；`hWnd`参数为可选参数，留空表示白板窗口没有父窗口，此时创建出来的白板窗口为独立窗口。
 
 想要获得白板离线数据则还要初始化白板上报，添入参数依次为sdkAppID，房间ID，用户签名

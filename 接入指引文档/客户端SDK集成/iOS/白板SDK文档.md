@@ -19,7 +19,7 @@ TXBoardView *boardView = [[TXBoardView alloc] initWithFrame:frame];
 [self.view addSubview:boardView];
 ```
 
-> 白板长宽比最好固定为 16 : 9
+> 白板长宽比固定为 16 : 9
 
 ### 2.2 设置白板的delegate
 
