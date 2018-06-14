@@ -1,9 +1,4 @@
-## 1. 简介
-腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案接入工具，它对`iLiveSDK`、`boardsdk`和`COS`等SDK进行了业务封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
-
-> 注：由于在线课堂场景下老师主要在PC端进行操作，所以移动端TICSDK暂时不提供文档管理相关功能；
-
-## 2.准备工作
+## 1.准备工作
 TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E6%A6%82%E8%BF%B0.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [实时音视频](https://cloud.tencent.com/document/product/268/8424)
@@ -12,8 +7,8 @@ TICSDK使用了互动视频服务（iLiveSDK）、云通讯服务（IMSDK）、C
 
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
-## 3.集成SDK
-TICSDK仅支持gradle的集成方式。
+## 2.集成SDK
+TICSDK目前仅支持gradle的集成方式。
 
 第一步，在整个工程的build.gradle文件中，配置repositories，使用jcenter，如下：
 
@@ -60,12 +55,12 @@ defaultConfig {
 -keep class com.tencent.** {*;}
 ```
 
-## 4. TICSDK使用说明
+## 3. TICSDK使用说明
 工程配置完成之后，就可以进一步了解TICSDK的使用方法了，为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/Android/TICSDK_Android_Demo.zip).
 
 > 开发者Demo的主要主要为向开发者展示TICSDK的基本使用方法，所以简化了很多不必要的UI代码，使开发者更加专注于了解TICSDK的使用方法。
 
-### 4.1 主要类概览
+### 3.1 主要类概览
 
 先总体说明下SDK中主要类的功能：
 
@@ -77,7 +72,8 @@ TICClassroomOption | 加入课堂时的课堂配置类，主要用来配置加�
 AVRootView | iLiveSDK视频显示控件
 WhiteboardView | 白板控件
 
-### 4.2 控件使用
+### 3.2 控件使用
+
 TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和白板数据信息的。开发者可以直接使用或者集成，添加自己业务需要的特性。如Demo：
 
 ```xml
@@ -95,7 +91,7 @@ TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和
 ```
 >开发者也可以定义自己AVRootView，继承AVRootView即可。
 
-**WhiteboardView控件仅支持款宽高比为16：9的比例显示。请开发者注意与设计师同步该信息，以及不要随意修改该比例，以免影响白板功能的正常体验。**
+**为了更好的白板体验，WhiteboardView控件宽高比固定为16：9的比例显示。请开发者注意与设计师同步该信息，以及不要随意修改该比例，以免影响白板功能的正常体验。**
 
 实时音视频的AVRootView控件，构建出实例后，需要设置给TICSDK内部，如：
 
@@ -106,7 +102,7 @@ TICManager.getInstance().setAvRootView(livingVideoView);
 关于AVRootView更多使用，请参考
 [Android渲染指引文档](https://github.com/zhaoyang21cn/iLiveSDK_Android_Suixinbo/blob/master/doc/ILiveSDK/AndroidRenderIntr.md)
 
-### 4.3 TICSDK业务流程
+### 3.3 TICSDK业务流程
 
 TICSDK使用的一般流程如下：
 
@@ -117,7 +113,7 @@ TICSDK使用的一般流程如下：
 
 下面将SDK按照功能划分，遵循一般的使用顺序，介绍一下`TICSDK`中各功能的使用方法和注意点:
 
-### 4.4 初始化SDK
+### 3.4 初始化SDK
 要使用`TICSDK`，首先得进行初始化，初始化方法位于`TICSDK`单例类中：
 
 ```java
@@ -157,7 +153,7 @@ TICManager.getInstance().setCosConfig(cosConfig);
 
 ```
 
-### 4.5 登录/登出
+### 3.5 登录/登出
 初始化完成之后，因为涉及到IM消息的收发，所以还必须先登录：
 
 ```java
@@ -196,7 +192,7 @@ TICManager.getInstance().setCosConfig(cosConfig);
     public void logout(final ILiveCallBack callBack);
 ```
 
-### 4.6 课堂管理
+### 3.6 课堂管理
 
 * 创建课堂
 
@@ -339,7 +335,7 @@ WhiteboardManager.getInstance().getConfig()
 
 白板的相关操作用户直接通过白板SDK操作即可，TICSDK不做任何封装。详见[Android白板SDK使用手册](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/Android/Android%E7%99%BD%E6%9D%BFSDK%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md) 。
 
-### 4.8 IM相关操作
+### 3.8 IM相关操作
 
 IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只封装了一些常用接口：
 
@@ -418,7 +414,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 
 这4个接口方法，分别对应了前面4个消息发送的方法，对应类型的消息会在对应类型的代理方法中回调给课堂内所有成员（发消息本人除外），其他端收到后可以将消息展示在界面上。
 
-### 4.9 音视频相关操作
+### 3.9 音视频相关操作
 
 这部分功能封装于腾讯云实时音视频SDK `iLiveSDK`，TICSDK中只封装了一些常用的接口：打开/关闭摄像头、切换摄像头、打开/关闭麦克风、打开/关闭扬声器等，具体如下：
 
@@ -460,7 +456,7 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 课堂内成员在进行打开/关闭摄像头、麦克风操作时，会触发音视频事件，iLiveSDK自动渲染到控件上。同时对AVRootView设置setSubCreatedListener事件监听，则会收到onSubViewCreated的回调。此时，开发者可以遍历AVRootView中的AVVideoView，对各视频流做展示处理。具体参考（待添加：iLiveSDK相关文档链接。）
 
 
-### 4.10 课堂内其他事件监听
+### 3.10 课堂内其他事件监听
 
 进入课堂的配置对象中的课堂事件监听接口的协议方法：
 
@@ -482,8 +478,8 @@ IM相关的接口封装于腾讯云通信SDK`IMSDK`，同样，TICSDK中也只�
 以上协议方法分别代表有人加入课堂，有人退出课堂和课堂被解散的回调，开发者可以根据自己的业务需求，对回调事件进行相应的处理，比如：在收到课堂解散回调时（老师退出课堂即触发该回调），课堂内的学生端可以弹出一个提示框，提示学生课堂已经结束。
 
 
-## 5.常见问题
-### 5.1.**AvRootView**与**WhiteboardView**叠加时白板无法显示。
+## 4.常见问题
+### 4.1.**AvRootView**与**WhiteboardView**叠加时白板无法显示。
 
 AvRootView和WhiteboardView都是集成SurfaceView的，SurfaceView叠加显示时会有异常。
 通过SurfaceView的setZOrderMediaOverlay(true);即可解决。
