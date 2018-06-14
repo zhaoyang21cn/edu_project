@@ -46,7 +46,7 @@ TICSDK有创建课堂的接口，但是课堂ID (roomID) 由外面传入，TICSD
 ### 3. 客户端 SDK 文档
 
 * [Windows SDK](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Windows/TICSDK%E6%96%87%E6%A1%A3.md)
-* [Web SDK](https://github.com/zhaoyang21cn/edu_project/blob/master/SDK%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/WEB/Web%E4%BA%92%E5%8A%A8%E8%AF%BE%E5%A0%82SDK%EF%BC%88TICSDK%EF%BC%89%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3.md)
+* [Web SDK](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/TICSDK%E6%96%87%E6%A1%A3.md)
 * [Android SDK](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Android/TICSDK%E6%96%87%E6%A1%A3.md)
 * [iOS SDK](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/iOS/TICSDK%E6%96%87%E6%A1%A3.md)
 
