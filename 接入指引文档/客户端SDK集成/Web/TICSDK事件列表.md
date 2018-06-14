@@ -1,6 +1,6 @@
 # TICSDK事件总览
 
-该文档主要列举TICSDK中的事件名称和事件产生时机，请在阅读该文章之前查看了[Web互动课堂SDK（TICSDK）集成文档](./Web互动课堂SDK（TICSDK）集成文档.md)
+该文档主要列举TICSDK中的事件名称和事件产生时机，请在阅读该文章之前查看了[Web互动课堂SDK（TICSDK）集成文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/Web%E4%BA%92%E5%8A%A8%E8%AF%BE%E5%A0%82SDK%EF%BC%88TICSDK%EF%BC%89%E9%9B%86%E6%88%90%E6%96%87%E6%A1%A3.md)
 
 
 ## TICKSDK监听方法
