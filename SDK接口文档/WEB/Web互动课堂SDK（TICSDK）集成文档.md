@@ -32,7 +32,7 @@ TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）
 
 ### 4.1 SDK简介
 
-> TICSDK是以事件驱动模式的SDK；接入方只需要简单的调用简单几个方法，注册与业务相关事件监听，即可完成简单的接入。[TICSDK事件](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/TICSDK%E4%BA%8B%E4%BB%B6%E5%88%97%E8%A1%A8.md)
+> TICSDK是以事件驱动模式的SDK；接入方只需要简单的调用简单几个方法，注册与业务相关事件监听，即可完成简单的接入。[TICSDK事件列表](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/TICSDK%E4%BA%8B%E4%BB%B6%E5%88%97%E8%A1%A8.md)
 
 SDK | 主要功能
 --------- | ---------

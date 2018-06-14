@@ -32,12 +32,12 @@ TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）
 
 ### 4.1 SDK简介
 
-> TICSDK是以事件驱动模式的SDK；接入方只需要简单的调用简单几个方法，注册与业务相关事件监听，即可完成简单的接入。[TICSDK事件](./API/TICSDK事件列表.md)
+> TICSDK是以事件驱动模式的SDK；接入方只需要简单的调用简单几个方法，注册与业务相关事件监听，即可完成简单的接入。[TICSDK事件列表](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/TICSDK%E4%BA%8B%E4%BB%B6%E5%88%97%E8%A1%A8.md)
 
 SDK | 主要功能
 --------- | ---------
 TICSDK | 整个SDK的入口类，提供了SDK【初始化】、【登录/登出SDK】、【创建/加入/销毁课堂】、【音视频操作】、【IM操作】以及【获取IMSDK实例、WebRTCAPI实例、白板实例】的接口。
-BoardSDK | 白板提供了画曲线，直线，矩形，圆形，激光笔，橡皮擦，上传PPT，PDF, 等功能。白板接口请参考[白板API文档](./白板SDK文档.md)
+BoardSDK | 白板提供了画曲线，直线，矩形，圆形，激光笔，橡皮擦，上传PPT，PDF, 等功能。白板接口请参考[白板API文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/%E7%99%BD%E6%9D%BFSDK%E6%96%87%E6%A1%A3.md)
 IMSDK | TICSDK中提供了普通文本单聊、群聊，自定义消息单聊、群聊四个基础接口，如果不满足业务需求，可获取IM实例后，按腾讯云提供的[IM文档](https://cloud.tencent.com/document/product/269/1594)实现业务需求。
 WebRTCAPI | TICSDK中提供了常见的音视频通话接口，如果不满足业务需求，可获取WebRTCAPI实例后，按腾讯云提供的[WebRTCAPI](https://cloud.tencent.com/document/product/647/16924)实现业务需求。
 
@@ -193,7 +193,7 @@ this.ticSdk.destroyClassRoom()
 
 ### 4.9 白板相关操作
 
-白板的相关操作直接通过TICSDK提供的获取白板实例接口获取白板实例来操作白板，TICSDK不做任何封装。详见[WEB白板API](./API/白板SDKAPI.md)。
+白板的相关操作直接通过TICSDK提供的获取白板实例接口获取白板实例来操作白板，TICSDK不做任何封装。详见[白板SDK文档](https://github.com/zhaoyang21cn/edu_project/blob/master/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%BC%95%E6%96%87%E6%A1%A3/%E5%AE%A2%E6%88%B7%E7%AB%AFSDK%E9%9B%86%E6%88%90/Web/%E7%99%BD%E6%9D%BFSDK%E6%96%87%E6%A1%A3.md)。
 
 ### 4.10 IM相关操作
 
@@ -363,6 +363,3 @@ this.ticSdk.uploadFile(file, succ, fail)
 
 2. 监听了事件，但没有不回调？
 > 监听事件是否在调用登录接口前就完成了监听
-
-
-
