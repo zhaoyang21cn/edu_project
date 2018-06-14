@@ -1,7 +1,5 @@
-## 1.1 简介
-腾讯互动课堂（Tencent Interact Class，TIC）SDK 是一个提供在线教育场景下综合解决方案的动态链接库，对`ILiveSDK`、`IMSDK`、`BroadSDK`和`COSSDK`  四个SDK进行了集成封装，提供了【多人音视频】，【多人即时通信】，【多人互动画板】，【文档云端转码预览】等功能。适用于在线互动课堂，在线会议，你画我猜等场景。
 
-## 1.2 准备工作
+## 1. 准备工作
 TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）、COS服务等腾讯云服务能力，在使用腾讯互动课堂服务时，请先阅读指[TICSDK接入指引文档](../../接入指引文档/概述.md)，了解相关服务的基本概念和基本业务流程。相关链接如下：
 
 [实时音视频](https://cloud.tencent.com/document/product/268/8424)
@@ -10,12 +8,16 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
-## 1.3 下载				   	
-开发者demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_Demo_1.0.0.zip)
+### 1.1 资源下载	
 
-SDK下载：[TICSDK Code](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
+为了方便开发者的集成使用，我们开发了一个面向开发者的demo，开发者可以参照该demo使用TICSDK，[点击下载开发者Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_Demo_1.0.0.zip).
+
+> 开发者Demo的主要主要为向开发者展示TICSDK的基本使用方法，所以简化了很多不必要的UI代码，使开发者更加专注于了解TICSDK的使用方法。
+
+SDK下载：[TICSDK](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
 
 ## 2. 集成SDK
+
 ### 2.1 编译
 在VisualStudio工程里面，选择编译平台为x86
 
