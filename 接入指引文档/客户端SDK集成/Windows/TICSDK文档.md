@@ -399,7 +399,8 @@ virtual int initWhiteBoard(BoardSDK* boardsdk) = 0;
 */
 virtual TICWhiteboardManager* getTICWhiteBoardManager() = 0;
 ```
-开发者可以通过getTICWhiteBoardManager()获得白板管理类里面封装好的方法，也可以直接调用BoardSDK.h里面的接口对白板进行操作，BoardSDK详见[PC白板SDK使用手册](./PC白板SDK使用手册.md) 。
+开发者可以通过getTICWhiteBoardManager()获得白板管理类里面封装好的方法，也可以直接调用BoardSDK.h里面的接口对白板进行操作，BoardSDK详见[白板SDK文档](https://github.com/zhaoyang21cn/edu_project/blob/master/接入指引文档/客户端SDK集成/Windows/白板SDK文档.md) 。
+
 ```C++
 	> TICWhiteboardManager.h
 	/**
