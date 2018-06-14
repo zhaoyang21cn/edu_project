@@ -11,17 +11,25 @@ TICSDK使用了实时音视频服务（iLiveSDK）、云通讯服务（IMSDK）�
 [COS服务](https://cloud.tencent.com/document/product/436/6225)
 
 ## 1.3 下载				   	
-体验demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_Demo_1.0.0.zip)
+开发者demo下载：[TICSDK Demo](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_Demo_1.0.0.zip)
 
-代码下载：[TICSDK Code](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
+SDK下载：[TICSDK Code](http://dldir1.qq.com/hudongzhibo/TICSDK/PC/TICSDK_PC_1.0.0.zip)
 
 ## 2. 集成SDK
 ### 2.1 编译
+在VisualStudio工程里面，选择编译平台为x86
+
+![](https://main.qcloudimg.com/raw/944398e69196f1cb5a1d6a3db63d1dd6.png)
+
 在VisualStudio工程里面，`配置属性`->`C/C++`里面添加TICSDK、iLiveSDK、BoardSDK头文件地址
-![](https://main.qcloudimg.com/raw/4cbbb9401a48be2ce163afb48d81245c.png)
+
+![](https://main.qcloudimg.com/raw/98866e32ed59d559b3dd18069717ca70.png)
 
 在VisualStudio工程里面，`配置属性`->`链接器`里面添加`TICSDK.lib`、`iLiveSDK.lib`这两个链接库，并指定好库文件地址
+
 ![](https://main.qcloudimg.com/raw/1cd17fb7e0f9e5ed2ffa0b4aa95834dd.png)
+
+![](https://main.qcloudimg.com/raw/69db29e18bef8083fbbd54374294e778.png)
 
 ## 3 快速开发
 ### 3.1 初始化参数
