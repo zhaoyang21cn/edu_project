@@ -99,8 +99,8 @@ TICSDK主要用到两个重要的UI控件，分别用于显示视频流信息和
 AVRootView livingVideoView = (AVRootView) findViewById(R.id.av_root_view);
 TICManager.getInstance().setAvRootView(livingVideoView);
 ```
-关于AVRootView更多使用，请参考
-[Android渲染指引文档](https://github.com/zhaoyang21cn/iLiveSDK_Android_Suixinbo/blob/master/doc/ILiveSDK/AndroidRenderIntr.md)
+关于AVRootView更多使用，请参考实时音视频中的
+[定制视频画面展示](https://cloud.tencent.com/document/product/647/17433)
 
 ### 3.3 TICSDK业务流程
 
