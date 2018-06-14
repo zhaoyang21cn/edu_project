@@ -10,19 +10,21 @@ TICSDK使用了实时音视频服务（WebRTCAPI）、云通讯服务（IMSDK）
 
 ## 2.集成SDK
 
+在页面中加载以下SDK。
+
 ```
 <!-- WebRTC SDK -->
 <script src="https://sqimg.qq.com/expert_qq/webrtc/2.4/WebRTCAPI.min.js"></script>
 <!-- WebIM SDK -->
 <script src="https://sqimg.qq.com/expert_qq/webim/1.7.1/webim.min.js"></script>
 <!-- 白板SDK -->
-<script src="http://sqimg.qq.com/expert_qq/edu/2.0.0/board_sdk.mini.js"></script>
+<script src="https://sqimg.qq.com/expert_qq/edu/2.0.0/board_sdk.mini.js"></script>
 <!-- COS SDK -->
 <script src="https://sqimg.qq.com/expert_qq/cos/5.0.0/cos.mini.js"></script>
 <!-- TIC SDK -->
 <script src="https://sqimg.qq.com/expert_qq/TICSDK/1.0.0/TICSDK.mini.js"></script>
 ```
-
+> 建议直接使用腾讯云CDN加速的SDK。
 
 ## 3. 使用SDK
 
