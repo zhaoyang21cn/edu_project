@@ -485,6 +485,60 @@ virtual TICWhiteboardManager* getTICWhiteBoardManager() = 0;
 	* \brief 拉取离线数据
 	*/
 	virtual void getBoardData() = 0;
+
+	/**
+	* \brief 获取当前页码
+	* \return 当前页码
+	*/
+	virtual uint32_t getPageIndex() = 0;
+
+	/**
+	* \brief 获取总页数
+	* \return 总页数
+	*/
+	virtual uint32_t getPageCount() = 0;
+
+	/**
+	* \brief 刷新页码
+	*/
+	virtual void refreshPageInfo() = 0;
+
+	/**
+	* \brief 页码跳转
+	* \param pageIndex  跳转的页码
+	*/
+	virtual void gotoPage(uint32_t pageIndex) = 0;
+
+	/**
+	* \brief 跳转上一页
+	*/
+	virtual void gotoLastPage() = 0;
+
+	/**
+	* \brief 跳转下一页
+	*/
+	virtual void gotoNextPage() = 0;
+
+	/**
+	* \brief 插入新的一页
+	*/
+	virtual void insertPage() = 0;
+
+	/**
+	* \brief 删除当前页
+	*/
+	virtual void deletePage() = 0;
+
+	/**
+	* \brief 新增一页（用户指定白板ID）
+	*/
+	virtual void addPage(const std::string boardId) = 0;
+
+	/**
+	* \brief 添加一个PPT所有页并生成白板
+	* \param urls  一个PPT所有的url
+	*/
+	virtual void addFile(std::vector<std::wstring>& urls) = 0;
 ```
 
 #### 4.8 IM相关操作
