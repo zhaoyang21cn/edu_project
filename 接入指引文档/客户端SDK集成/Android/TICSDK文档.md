@@ -41,7 +41,7 @@ compile 'com.tencent.boardsdk:boardsdk:1.2.5'
 defaultConfig {
 	...
 	ndk {
-		// 设置支持的so库架构
+		// 设置支持的so库架构，推荐使用ndk 15或者ndk 16
 		abiFilters 'armeabi', 'armeabi-v7a'
 	}
 }
@@ -52,7 +52,7 @@ defaultConfig {
 
 ```
 -dontwarn com.tencent.**
--keep class com.tencent.** {*;}
+-keep class com.tencent.**{*;}
 ```
 
 ## 3. TICSDK使用说明
@@ -139,7 +139,7 @@ if (主进程) {
 }
 ```
 COS为[腾讯云对象存储](https://cloud.tencent.com/document/product/436/6225)，如果您的APP中需要用到上传图片、文件到白板上展示的功能 (移动端只能上传图片)，则需要先在腾讯云对象存储开通了服务，然后再在SDK中将相关参数配置好，TICSDK内部会将调用SDK接口上传的图片，文件上传到您配置的COS云存储桶中。
-TICSDK初始化SDK时也需要初始化COS SDK模。主要构造**CosConfig**配置信息，通过**TICManager#setCosConfig**接口完成COS相关配置，如下：
+TICSDK初始化SDK时也需要初始化COS SDK模块。主要构造**CosConfig**配置信息，通过**TICManager的setCosConfig**接口完成COS相关配置，如下：
 
 ```java
 CosConfig cosConfig = new CosConfig()
