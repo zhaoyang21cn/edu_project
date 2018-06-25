@@ -179,7 +179,6 @@ boardSDk->remove();//删除选中图形
 class MyCallback : public BoardCallback{
 public:
     void onActionsData(const char *data, uint32_t length) override;
-    void onBoardEventData(const char *data, uint32_t length) override;
     void onStatusChanged(bool canUndo, bool canRedo) override;
     uint32_t onGetTime() override;
     void onGetBoardData(bool bResult) override;
@@ -216,6 +215,7 @@ boardSDk->redo();//重做
 ```C++
 boardSDk->getBoardData();
 ```
+拉取白板数据结果通过回调`onGetBoardData`返回通知，白板数据每次更新上报的结果会通过回调`onReportBoardData`返回通知给上层。
 
 ## 3. SDK参考
 各接口具体的作用及参数说明，详见SDK头文件注释。
