@@ -58,6 +58,8 @@
 	
 	<optgroup label="Class Methods">
 		
+		<option value="//api/name/getVersion">+ getVersion</option>
+		
 		<option value="//api/name/sharedInstance">+ sharedInstance</option>
 		
 	</optgroup>
@@ -66,19 +68,25 @@
 	
 	<optgroup label="Instance Methods">
 		
-		<option value="//api/name/addBoardView:">- addBoardView:</option>
+		<option value="//api/name/addBoardView:andLoadHistoryData:">- addBoardView:andLoadHistoryData:</option>
 		
-		<option value="//api/name/createClassroomSucc:failed:">- createClassroomSucc:failed:</option>
+		<option value="//api/name/createClassroomWithRoomID:succ:failed:">- createClassroomWithRoomID:succ:failed:</option>
 		
 		<option value="//api/name/enableCamera:enable:succ:failed:">- enableCamera:enable:succ:failed:</option>
 		
 		<option value="//api/name/enableMic:succ:failed:">- enableMic:succ:failed:</option>
 		
-		<option value="//api/name/joinClassroom:option:succ:failed:">- joinClassroom:option:succ:failed:</option>
+		<option value="//api/name/enableSpeaker:succ:failed:">- enableSpeaker:succ:failed:</option>
+		
+		<option value="//api/name/initSDK:accountType:">- initSDK:accountType:</option>
+		
+		<option value="//api/name/joinClassroomWithOption:succ:failed:">- joinClassroomWithOption:succ:failed:</option>
 		
 		<option value="//api/name/loginWithUid:userSig:succ:failed:">- loginWithUid:userSig:succ:failed:</option>
 		
 		<option value="//api/name/logout:failed:">- logout:failed:</option>
+		
+		<option value="//api/name/quitClassroom:Succ:failed:">- quitClassroom:Succ:failed:</option>
 		
 		<option value="//api/name/quitClassroomSucc:failed:">- quitClassroomSucc:failed:</option>
 		
@@ -89,6 +97,8 @@
 		<option value="//api/name/sendGroupCustomMessage:succ:failed:">- sendGroupCustomMessage:succ:failed:</option>
 		
 		<option value="//api/name/sendGroupTextMessage:succ:failed:">- sendGroupTextMessage:succ:failed:</option>
+		
+		<option value="//api/name/sendMessage:toUser:succ:failed:">- sendMessage:toUser:succ:failed:</option>
 		
 		<option value="//api/name/switchCamera:failed:">- switchCamera:failed:</option>
 		
@@ -188,8 +198,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/addBoardView:" title="addBoardView:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/addBoardView:">&ndash;&nbsp;addBoardView:</a></code>
+	<a name="//api/name/getVersion" title="getVersion"></a>
+	<h3 class="method-title"><code><a href="#//api/name/getVersion">+&nbsp;getVersion</a></code>
 </h3>
 
 	<div class="method-info">
@@ -199,12 +209,58 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>添加白板到 TICManager【使用白板必调】</p>
+				<p>获取SDK版本号</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)addBoardView:(TXBoardView *)<em>boardView</em></code></div>
+			<div class="method-subsection method-declaration"><code>+ (NSString *)getVersion</code></div>
+
+		    
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>TICSDK版本号</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TICManager.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initSDK:accountType:" title="initSDK:accountType:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initSDK:accountType:">&ndash;&nbsp;initSDK:accountType:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>初始化SDK</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (int)initSDK:(NSString *)<em>SDKAppID</em> accountType:(NSString *)<em>accountType</em></code></div>
 
 		    
 			
@@ -213,8 +269,13 @@
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>boardView</code></th>
-						<td><p>用户创建的白板对象</p></td>
+						<th scope="row" class="argument-name"><code>SDKAppID</code></th>
+						<td><p>腾讯云控制台注册的应用ID</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>accountType</code></th>
+						<td><p>腾讯云控制台注册的应用的账号类型</p></td>
 					</tr>
 				
 				</table>
@@ -222,14 +283,14 @@
 			
 
 			
-
-			
-
-			
-			<div class="method-subsection discussion-section">
-				<h4 class="method-subtitle">Discussion</h4>
-				<p>方法内部不会对 TXBoardView 对象进行强引用，只是将boardView的代理设置为 TICManager</p>
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>初始化结果，0代表成功，其他代表失败(返回错误码 8021，表示参数无效)</p>
 			</div>
+			
+
+			
+
 			
 
 			
@@ -277,7 +338,7 @@
 				
 					<tr>
 						<th scope="row" class="argument-name"><code>userSig</code></th>
-						<td><p>用户签名</p></td>
+						<td><p>用户签名（由腾讯云后台生成，详见TICSDK集成文档登录部分）</p></td>
 					</tr>
 				
 				</table>
@@ -288,6 +349,13 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>开发者登录自有账号后，从IM后台获取usersig来登录TICSDK
+请参考：<a href="https://cloud.tencent.com/document/product/269/1508">https://cloud.tencent.com/document/product/269/1508</a>
+注：调用本接口登录之后，不需要再调用其它登录接口(比如ILiveSDK和ImSDK的登录接口)</p>
+			</div>
 			
 
 			
@@ -345,8 +413,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/createClassroomSucc:failed:" title="createClassroomSucc:failed:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/createClassroomSucc:failed:">&ndash;&nbsp;createClassroomSucc:failed:</a></code>
+	<a name="//api/name/createClassroomWithRoomID:succ:failed:" title="createClassroomWithRoomID:succ:failed:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/createClassroomWithRoomID:succ:failed:">&ndash;&nbsp;createClassroomWithRoomID:succ:failed:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -356,14 +424,26 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>创建课堂（成功回调中会返回classID）</p>
+				<p>创建课堂</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)createClassroomSucc:(void ( ^ ) ( NSString *classID ))<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)createClassroomWithRoomID:(int)<em>roomID</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
 
 		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>roomID</code></th>
+						<td><p>课堂ID，课堂唯一标识（必须为正整数）</p></td>
+					</tr>
+				
+				</table>
+			</div>
 			
 
 			
@@ -386,8 +466,8 @@
 		</div>
 	</div>
 </div><div class="section-method">
-	<a name="//api/name/joinClassroom:option:succ:failed:" title="joinClassroom:option:succ:failed:"></a>
-	<h3 class="method-title"><code><a href="#//api/name/joinClassroom:option:succ:failed:">&ndash;&nbsp;joinClassroom:option:succ:failed:</a></code>
+	<a name="//api/name/joinClassroomWithOption:succ:failed:" title="joinClassroomWithOption:succ:failed:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/joinClassroomWithOption:succ:failed:">&ndash;&nbsp;joinClassroomWithOption:succ:failed:</a></code>
 </h3>
 
 	<div class="method-info">
@@ -397,12 +477,12 @@
 			
 			
 			<div class="method-subsection brief-description">
-				<p>加入指定classID的课堂</p>
+				<p>加入指定roomID的课堂</p>
 			</div>
 			
 		    
 
-			<div class="method-subsection method-declaration"><code>- (void)joinClassroom:(NSString *)<em>classroomID</em> option:(TICClassroomOption *)<em>option</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
+			<div class="method-subsection method-declaration"><code>- (void)joinClassroomWithOption:(TICClassroomOption *( ^ ) ( TICClassroomOption *option ))<em>configOption</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
 
 		    
 			
@@ -411,12 +491,7 @@
 				<table class="argument-def parameter-def">
 				
 					<tr>
-						<th scope="row" class="argument-name"><code>classroomID</code></th>
-						<td><p>创建课堂成功后返回的classID</p></td>
-					</tr>
-				
-					<tr>
-						<th scope="row" class="argument-name"><code>option</code></th>
+						<th scope="row" class="argument-name"><code>configOption</code></th>
 						<td><p>加入课堂配置项</p></td>
 					</tr>
 				
@@ -428,6 +503,11 @@
 
 			
 
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>注意：TICClassroomOption 的 controlRole 和 avOption.privateMapKey 参数必填，controlRole代表进房之后使用什么规格音视频参数，参数具体值为客户在腾讯云实时音视频控制台画面设定中配置的角色名（例如：默认角色名为user, 可设置controlRole = @&ldquo;user"）；avOption.privateMapKey 相当于房间秘钥，1.1.0 版本后必传，详细见 <a href="https://cloud.tencent.com/document/product/680/17891">https://cloud.tencent.com/document/product/680/17891</a>#2.6-.E8.AF.BE.E5.A0.82.E7.AE.A1.E7.90.86</p>
+			</div>
 			
 
 			
@@ -482,6 +562,127 @@
 			<div class="method-subsection discussion-section">
 				<h4 class="method-subtitle">Discussion</h4>
 				<p>在创建该课堂的老师退出课堂后，课堂相关的音视频房间、IM群组将会被销毁</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TICManager.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/quitClassroom:Succ:failed:" title="quitClassroom:Succ:failed:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/quitClassroom:Succ:failed:">&ndash;&nbsp;quitClassroom:Succ:failed:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>退出课堂</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)quitClassroom:(BOOL)<em>isQuitIMGroup</em> Succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>isQuitIMGroup</code></th>
+						<td><p>是否退出IM群组</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>在创建该课堂的老师退出课堂后，课堂相关的音视频房间、IM群组将会被销毁</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TICManager.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addBoardView:andLoadHistoryData:" title="addBoardView:andLoadHistoryData:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addBoardView:andLoadHistoryData:">&ndash;&nbsp;addBoardView:andLoadHistoryData:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>添加白板到 TICManager【使用白板必调】，并拉取课堂历史数据</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addBoardView:(TXBoardView *)<em>boardView</em> andLoadHistoryData:(void ( ^ ) ( int errCode , NSString *errMsg ))<em>loadFinish</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>boardView</code></th>
+						<td><p>用户创建的白板对象</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>loadFinish</code></th>
+						<td><p>拉取完成回调（拉取失败会发挥错误码和错误信息，拉取成功则errCode为0，errMsg为nil）</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>方法内部不会对 TXBoardView 对象进行强引用，只是将boardView的代理设置为 TICManager，同时只能添加一个，重复添加以后添加的为准</p>
 			</div>
 			
 
@@ -615,6 +816,59 @@
 		    
 
 			<div class="method-subsection method-declaration"><code>- (void)enableMic:(BOOL)<em>isEnable</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>isEnable</code></th>
+						<td><p>YES:打开 NO:关闭</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TICManager.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/enableSpeaker:succ:failed:" title="enableSpeaker:succ:failed:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/enableSpeaker:succ:failed:">&ndash;&nbsp;enableSpeaker:succ:failed:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>打开/关闭 扬声器</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)enableSpeaker:(BOOL)<em>isEnable</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
 
 		    
 			
@@ -872,6 +1126,64 @@
 			
 		</div>
 	</div>
+</div><div class="section-method">
+	<a name="//api/name/sendMessage:toUser:succ:failed:" title="sendMessage:toUser:succ:failed:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/sendMessage:toUser:succ:failed:">&ndash;&nbsp;sendMessage:toUser:succ:failed:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>发送消息（可以发送所有类型的消息）</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)sendMessage:(TIMMessage *)<em>msg</em> toUser:(NSString *)<em>recvId</em> succ:(TCIVoidBlock)<em>succ</em> failed:(TCIErrorBlock)<em>failed</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>msg</code></th>
+						<td><p>消息对象</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>recvId</code></th>
+						<td><p>接受者 (填空表示发群消息)</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">TICManager.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
 </div>
 						</div>
 						
@@ -887,7 +1199,7 @@
 				<footer>
 					<div class="footer-copyright">
 						
-						<p class="copyright">Copyright &copy; 2018 Tencent. All rights reserved. Updated: 2018-05-21</p>
+						<p class="copyright">Copyright &copy; 2018 Tencent. All rights reserved. Updated: 2018-08-23</p>
 						
 						
 						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1334)</a>.</p>
