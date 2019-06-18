@@ -20,7 +20,7 @@
 | cmd | string | 主命令字，本接口固定为`open_record_svc`|
 | sub_cmd | string | 子命令字，本接口固定为`get_im_msg_from_cos`|
 | groupid | string | IM群组ID|
-| index |int | IM消息的文件索引，第一次拉取时填0， 轮训拉取，每次+1，直到is_finish=true|
+| index |int | IM消息的文件索引，第一次拉取时填0， 轮训拉取，每次+1，直到is_finish=true,如果此值小于0，则会自动修正为0|
 | is_finish | bool | 是否拉取完所有消息 true-拉取完/false-未拉完 |
 | msg_list |Array | IM消息数组，数组中的对象是IM消息对象，IM消息对象参考腾讯云官网`云通信`|
 
