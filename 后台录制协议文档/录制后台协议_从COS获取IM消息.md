@@ -26,10 +26,10 @@
 request 
 ```
 {
-	"cmd":"open_record_svc",
-	"sub_cmd":"get_im_msg_from_cos",
-	"groupid":"1234",
-	"index":0
+    "cmd":"open_record_svc",
+    "sub_cmd":"get_im_msg_from_cos",
+    "groupid":"1234",
+    "index":0
 }
 ```
 
